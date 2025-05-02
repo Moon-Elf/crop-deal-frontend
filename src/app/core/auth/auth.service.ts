@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { TokenService } from '../core/interceptors/token.service';
-import { environment } from '../../environments/environment';
+import { TokenService } from './token.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,19 @@ logout(): void {
     role: string;
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, data);
+  }
+  
+
+  getUserRole(): string | null {
+    const token = this.tokenService.getToken();
+    if (!token) return null;
+  
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || null;
+    } catch (e) {
+      return null;
+    }
   }
   
 }

@@ -1,12 +1,32 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { RoleGuard } from './core/guards/role.guard';  // Import RoleGuard
+import { DashboardComponent } from './features/farmer/dashboard/dashboard.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
-    { path: 'signup', component: SignupComponent },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]}
+    { path: '', redirectTo: 'farmer', pathMatch: 'full' },
+    {
+        path: 'auth',
+        loadChildren: () =>
+            import('./features/auth/auth.module').then(m => m.AuthModule),
+    },
+    {
+        path: 'farmer',
+        loadChildren:() => import('./features/farmer/farmer.module').then(m => m.FarmerModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { expectedRole: 'Farmer' }
+    },
+    {
+        path: 'dealer',
+        loadChildren:() => import('./features/dealer/dealer.module').then(m => m.DealerModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { expectedRole: 'Dealer' }
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { expectedRole: 'Admin' }
+    }
+    
 ];
