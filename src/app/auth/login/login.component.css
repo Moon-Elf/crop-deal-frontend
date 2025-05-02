@@ -1,0 +1,94 @@
+.container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(159, 179, 223, 0.2);
+    background-color: #FFF1D5; /* Creamy background */
+}
+
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 1.8rem;
+    font-size: 1.8rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    font-weight: 600;
+    color: #4a6583;
+    font-size: 0.95rem;
+}
+
+input {
+    padding: 0.8rem 1rem;
+    border: 2px solid #BDDDE4; /* Light teal border */
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #9EC6F3; /* Soft blue focus */
+    box-shadow: 0 0 0 3px rgba(158, 198, 243, 0.3);
+}
+
+button {
+    padding: 0.9rem;
+    background-color: #9FB3DF; /* Primary blue */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+button:hover {
+    background-color: #8da1cc;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background-color: #BDDDE4; /* Light teal for disabled */
+    cursor: not-allowed;
+    transform: none;
+}
+
+div[style="color: red;"] {
+    padding: 0.7rem;
+    background-color: rgba(255, 0, 0, 0.05);
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    border-left: 3px solid #ff6b6b;
+}
+
+div[role="alert"] {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    padding-left: 0.3rem;
+}
