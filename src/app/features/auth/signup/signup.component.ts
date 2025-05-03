@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class SignupComponent {
   signupForm: FormGroup;
   errorMessage: string = '';
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,16 +39,23 @@ export class SignupComponent {
 
   onSubmit(): void {
     if (this.signupForm.invalid) return;
+    this.isLoading = true;
 
     this.authService.signup(this.signupForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/login']);
+        this.isLoading = false;
+        alert('Signup successful! Redirecting to login.');
+        this.router.navigate(['/auth/login']);
       },
       error: (err) => {
-        this.errorMessage = 'Signup failed. Please check your data.';
-        console.error('Signup errpr:', err);
+        this.isLoading = false;
+        if (err.status === 400) {
+          this.errorMessage = 'User already exists or invalid input.';
+        } else {
+          this.errorMessage = 'An error occurred. Please try again.';
+        }
+        console.error('Signup error:', err);
       }
     });
   }
 }
-

@@ -24,7 +24,8 @@
         <div>
             <label>Confirm Password:</label>
             <input formControlName="confirmPassword" type="password" />
-            <div *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched" style="color: red;">
+            <div *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched"
+                style="color: red;">
                 Passwords do not match
             </div>
         </div>
@@ -37,7 +38,8 @@
             </select>
         </div>
 
-        <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+        <button [disabled]="isLoading">Sign Up</button>
+        <span *ngIf="isLoading">Creating account...</span>
 
         <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
     </form>

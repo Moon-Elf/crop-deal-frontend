@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';  // Import RoleGuard
 import { DashboardComponent } from './features/farmer/dashboard/dashboard.component';
+import { MarketplaceComponent } from './features/marketplace/marketplace.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'farmer', pathMatch: 'full' },
@@ -27,6 +28,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule),
         canActivate: [AuthGuard, RoleGuard],
         data: { expectedRole: 'Admin' }
-    }
-    
+    },
+    {
+        path: 'marketplace',
+        component: MarketplaceComponent,
+        canActivate: [AuthGuard]
+    }      
 ];

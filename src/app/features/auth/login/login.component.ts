@@ -26,6 +26,14 @@ export class LoginComponent {
     });
   }
 
+
+  ngOnInit() {
+    const role = this.authService.getUserRole();
+    if (role === 'Farmer') this.router.navigate(['/farmer']);
+    else if (role === 'Dealer') this.router.navigate(['/dealer']);
+    else if (role === 'Admin') this.router.navigate(['/admin']);
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) return;
 
@@ -34,7 +42,7 @@ export class LoginComponent {
         console.log(response);
         const role = this.authService.getUserRole();
         console.log(role);
-        
+
         if (role == 'Farmer') {
           this.router.navigate(['/farmer']);
         } else if (role == 'Dealer') {

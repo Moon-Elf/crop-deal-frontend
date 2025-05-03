@@ -1,122 +1,62 @@
 .container {
-    max-width: 450px;
+    max-width: 400px;
     margin: 2rem auto;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(159, 179, 223, 0.25);
-    background-color: #FFF1D5;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 h2 {
     text-align: center;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    color: #388E3C;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.8rem;
-}
-
-form > div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+form div {
+    margin-bottom: 1rem;
 }
 
 label {
-    font-weight: 600;
-    color: #4a6583;
-    font-size: 0.95rem;
-    margin-left: 0.2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
 }
 
-input, select {
-    padding: 0.9rem 1.2rem;
-    border: 2px solid #BDDDE4;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: white;
-    transition: all 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-
+input,
 select {
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239FB3DF'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1.2rem;
-    padding-right: 2.5rem;
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: #9EC6F3;
-    box-shadow: 0 0 0 3px rgba(158, 198, 243, 0.3);
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 button {
-    padding: 1rem;
-    background-color: #9FB3DF;
+    width: 100%;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1.05rem;
-    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 4px;
     cursor: pointer;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
+    font-weight: bold;
     margin-top: 1rem;
-    text-transform: uppercase;
-}
-
-button:hover {
-    background-color: #8da1cc;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(159, 179, 223, 0.3);
-}
-
-button:active {
-    transform: translateY(0);
 }
 
 button:disabled {
-    background-color: #BDDDE4;
+    background-color: #a5d6a7;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
 }
 
-/* Error messages */
-div[style="color: red;"] {
-    padding: 0.8rem;
-    background-color: rgba(255, 0, 0, 0.05);
-    border-radius: 6px;
-    text-align: center;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    border-left: 4px solid #ff6b6b;
+a {
+    color: #388E3C;
+    text-decoration: none;
 }
 
-/* Password mismatch error */
-div[style="color: red;"]:not(:empty) {
-    margin-top: 0.5rem;
+a:hover {
+    text-decoration: underline;
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    .container {
-        padding: 1.8rem;
-        margin: 1.5rem;
-    }
-    
-    h2 {
-        font-size: 1.7rem;
-    }
+div[style*="color: red"] {
+    font-size: 0.875rem;
+    color: #e53935;
 }

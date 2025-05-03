@@ -1,16 +1,16 @@
 <nav class="navbar">
     <div class="navbar-container">
-      <div class="logo">
-        <a routerLink="/" class="navbar-logo">CropDeal</a>
-      </div>
-      <ul class="nav-links">
-        <li><a routerLink="/farmer" *ngIf="isFarmer()">Farmer Dashboard</a></li>
-        <li><a routerLink="/dealer" *ngIf="isDealer()">Dealer Dashboard</a></li>
-        <li><a routerLink="/admin" *ngIf="isAdmin()">Admin Dashboard</a></li>
-        <li><a routerLink="/auth/login" *ngIf="!isAuthenticated()">Login</a></li>
-        <li><a routerLink="/auth/signup" *ngIf="!isAuthenticated()">Signup</a></li>
-        <li><a (click)="logout()" *ngIf="isAuthenticated()">Logout</a></li>
-      </ul>
+        <div class="logo">
+            <a routerLink="/" class="navbar-logo">CropDeal</a>
+        </div>
+        <ul class="nav-links">
+            <li *ngIf="isFarmer()"><a routerLink="/farmer">Farmer Dashboard</a></li>
+            <li *ngIf="isDealer()"><a routerLink="/dealer">Dealer Dashboard</a></li>
+            <li *ngIf="isAdmin()"><a routerLink="/admin">Admin Dashboard</a></li>
+            <li *ngIf="!isAuthenticated()"><a routerLink="/auth/login">Login</a></li>
+            <li *ngIf="!isAuthenticated()"><a routerLink="/auth/signup">Signup</a></li>
+            <li *ngIf="isAuthenticated()"><a routerLink="/marketplace" >Marketplace</a></li>
+            <li><a (click)="logout()" *ngIf="isAuthenticated()">Logout</a></li>
+        </ul>
     </div>
-  </nav>
-  
+</nav>

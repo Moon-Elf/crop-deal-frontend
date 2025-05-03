@@ -1,45 +1,35 @@
-/* Basic Navbar Styling */
 .navbar {
-    background-color: #333;
-    padding: 10px 20px;
-  }
-  
-  .navbar-container {
+    background-color: #4CAF50;
+    padding: 1rem 2rem;
+    color: white;
+}
+
+.navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .navbar-logo {
-    font-size: 24px;
+}
+
+.navbar-logo {
+    font-weight: bold;
+    font-size: 1.5rem;
     color: white;
     text-decoration: none;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links li {
-    display: inline-block;
-  }
-  
-  .nav-links a {
+    gap: 1rem;
+}
+
+.nav-links a {
     color: white;
     text-decoration: none;
-    font-size: 18px;
-  }
-  
-  .nav-links a:hover {
-    color: #ffd700; /* Gold color on hover */
-  }
-  
-  @media (max-width: 768px) {
-    .nav-links {
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
-  
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
