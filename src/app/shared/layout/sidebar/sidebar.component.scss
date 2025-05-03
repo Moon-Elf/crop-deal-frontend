@@ -1,9 +1,27 @@
 .sidebar {
   width: 200px;
   position: fixed;
-  top: 56px; // height of navbar if fixed
+  top: 0;
   left: 0;
   bottom: 0;
   overflow-y: auto;
-  background-color: #f8f9fa;
+  background-color: #343a40;
+}
+
+.nav-link {
+  color: #fff;
+  &:hover, &.active {
+    background-color: #495057;
+  }
+}
+
+.dropup {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0.5rem 1rem;
+
+  .dropdown-toggle {
+    cursor: pointer;
+  }
 }

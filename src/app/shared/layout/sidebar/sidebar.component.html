@@ -1,19 +1,34 @@
-<nav class="bg-dark border-end vh-100 p-3 sidebar" *ngIf="isLoggedIn">
-  <ul class="nav flex-column">
-    <li class="nav-item" *ngIf="role === 'Farmer'">
-      <a class="nav-link" (click)="navigate('/farmer')">Dashboard</a>
+<nav class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark vh-100 sidebar" *ngIf="isLoggedIn">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-4">CropDeal</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li *ngIf="role === 'Farmer'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/farmer')">Dashboard</a>
     </li>
-    <li class="nav-item" *ngIf="role === 'Farmer'">
-      <a class="nav-link" (click)="navigate('/marketplace')">Marketplace</a>
+    <li *ngIf="role === 'Farmer'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/marketplace')">Marketplace</a>
     </li>
-    <li class="nav-item" *ngIf="role === 'Dealer'">
-      <a class="nav-link" (click)="navigate('/dealer')">Dashboard</a>
+    <li *ngIf="role === 'Dealer'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/dealer')">Dealer Dashboard</a>
     </li>
-    <li class="nav-item" *ngIf="role === 'Dealer'">
-      <a class="nav-link" (click)="navigate('/marketplace')">Marketplace</a>
+    <li *ngIf="role === 'Dealer'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/marketplace')">Marketplace</a>
     </li>
-    <li class="nav-item" *ngIf="role === 'Admin'">
-      <a class="nav-link" (click)="navigate('/admin')">Admin Dashboard</a>
+    <li *ngIf="role === 'Admin'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/admin')">Admin Dashboard</a>
     </li>
   </ul>
+  <hr>
+  <div class="dropup">
+    <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+      Profile
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
+      <li><a class="dropdown-item" (click)="navigate('/profile')">Profile</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
 </nav>

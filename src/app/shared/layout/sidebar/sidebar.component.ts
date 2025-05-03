@@ -3,6 +3,7 @@ import { TokenService } from '../../../core/auth/token.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +18,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   private sub = new Subscription();
 
-  constructor(private tokenService: TokenService, private router: Router) {}
+  constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) {}
 
   ngOnInit() {
     this.sub = this.tokenService.isLoggedIn$.subscribe((loggedIn) => {
@@ -32,5 +33,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 }
