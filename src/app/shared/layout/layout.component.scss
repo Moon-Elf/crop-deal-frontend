@@ -1,0 +1,12 @@
+.layout-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 200px;
+  padding: 20px;
+
+  &.w-100 {
+    margin-left: 0;
+  }
+}

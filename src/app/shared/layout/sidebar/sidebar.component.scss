@@ -1,0 +1,9 @@
+.sidebar {
+  width: 200px;
+  position: fixed;
+  top: 56px; // height of navbar if fixed
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+}

@@ -33,4 +33,15 @@
     color: #388E3C;
     text-align: center;
   }
-  
+
+  .card-img-top {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card {
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}

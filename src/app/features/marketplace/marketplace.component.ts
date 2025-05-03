@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './marketplace.component.html',
-  styleUrl: './marketplace.component.css'
+  styleUrl: './marketplace.component.scss'
 })
 export class MarketplaceComponent implements OnInit {
   listings: CropListing[] = [];

@@ -1,47 +1,71 @@
 <div class="container">
-    <h2>Sign Up</h2>
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label>Name:</label>
-            <input formControlName="name" type="text" />
+    <h2 class="text-center my-4">Sign Up</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm">
+
+        <!-- Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input id="name" formControlName="name" type="text" class="form-control" placeholder="Enter your name" />
         </div>
 
-        <div>
-            <label>Email:</label>
-            <input formControlName="email" type="email" />
+        <!-- Email -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input id="email" formControlName="email" type="email" class="form-control"
+                placeholder="Enter your email" />
         </div>
 
-        <div>
-            <label>Phone Number:</label>
-            <input formControlName="phoneNumber" type="text" />
+        <!-- Phone Number -->
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number:</label>
+            <input id="phoneNumber" formControlName="phoneNumber" type="text" class="form-control"
+                placeholder="Enter your phone number" />
         </div>
 
-        <div>
-            <label>Password:</label>
-            <input formControlName="password" type="password" />
+        <!-- Password -->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input id="password" formControlName="password" type="password" class="form-control"
+                placeholder="Enter your password" />
         </div>
 
-        <div>
-            <label>Confirm Password:</label>
-            <input formControlName="confirmPassword" type="password" />
+        <!-- Confirm Password -->
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password:</label>
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control"
+                placeholder="Re-enter your password" />
             <div *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched"
-                style="color: red;">
+                class="text-danger small mt-1">
                 Passwords do not match
             </div>
         </div>
 
-        <div>
-            <label>Role:</label>
-            <select formControlName="role">
+        <!-- Role -->
+        <div class="mb-3">
+            <label for="role" class="form-label">Role:</label>
+            <select id="role" formControlName="role" class="form-select">
                 <option value="Farmer">Farmer</option>
                 <option value="Dealer">Dealer</option>
             </select>
         </div>
 
-        <button [disabled]="isLoading">Sign Up</button>
-        <span *ngIf="isLoading">Creating account...</span>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100" [disabled]="isLoading || signupForm.invalid">Sign Up</button>
 
-        <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="text-center mt-3">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2">Creating account...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="text-danger mt-3 text-center">
+            {{ errorMessage }}
+        </div>
     </form>
-    <p>Already have a account? <span><a routerLink="/auth/login">Login</a></span></p>
+
+    <!-- Login Link -->
+    <p class="text-center mt-4">
+        Already have an account? <a routerLink="/auth/login" class="link-primary">Login</a>
+    </p>
 </div>

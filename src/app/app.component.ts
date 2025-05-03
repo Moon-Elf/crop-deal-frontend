@@ -8,7 +8,7 @@ import { LayoutComponent } from "./shared/layout/layout.component";
   standalone: true,
   imports: [LayoutComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'crop-deal-frontend';

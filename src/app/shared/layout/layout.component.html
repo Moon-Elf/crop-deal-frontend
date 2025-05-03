@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="layout-container">
-  <app-sidebar *ngIf="(isLoggedIn$ | async)"></app-sidebar>
-  <main class="main-content">
+  <app-sidebar *ngIf="(isLoggedIn$ | async) && !isAuthPage()"></app-sidebar>
+  <main class="main-content" [ngClass]="{ 'w-100': isAuthPage() }">
     <router-outlet></router-outlet>
   </main>
 </div>

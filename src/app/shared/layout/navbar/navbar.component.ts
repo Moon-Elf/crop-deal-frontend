@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { TokenService } from '../../../core/auth/token.service';
@@ -9,7 +9,7 @@ import { TokenService } from '../../../core/auth/token.service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) {}
@@ -39,5 +39,4 @@ export class NavbarComponent {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
   }
-
 }

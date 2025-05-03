@@ -1,9 +1,19 @@
-<nav class="sidebar">
-    <ul>
-      <li *ngIf="role === 'Farmer'" (click)="navigate('/farmer')">Dashboard</li>
-      <li *ngIf="role === 'Farmer'" (click)="navigate('/marketplace')">Marketplace</li>
-      <li *ngIf="role === 'Dealer'" (click)="navigate('/dealer')">Dashboard</li>
-      <li *ngIf="role === 'Dealer'" (click)="navigate('/marketplace')">Marketplace</li>
-      <li *ngIf="role === 'Admin'" (click)="navigate('/admin')">Admin Dashboard</li>
-    </ul>
+<nav class="bg-dark border-end vh-100 p-3 sidebar" *ngIf="isLoggedIn">
+  <ul class="nav flex-column">
+    <li class="nav-item" *ngIf="role === 'Farmer'">
+      <a class="nav-link" (click)="navigate('/farmer')">Dashboard</a>
+    </li>
+    <li class="nav-item" *ngIf="role === 'Farmer'">
+      <a class="nav-link" (click)="navigate('/marketplace')">Marketplace</a>
+    </li>
+    <li class="nav-item" *ngIf="role === 'Dealer'">
+      <a class="nav-link" (click)="navigate('/dealer')">Dashboard</a>
+    </li>
+    <li class="nav-item" *ngIf="role === 'Dealer'">
+      <a class="nav-link" (click)="navigate('/marketplace')">Marketplace</a>
+    </li>
+    <li class="nav-item" *ngIf="role === 'Admin'">
+      <a class="nav-link" (click)="navigate('/admin')">Admin Dashboard</a>
+    </li>
+  </ul>
 </nav>

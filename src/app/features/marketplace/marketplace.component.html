@@ -1,16 +1,25 @@
-<div class="marketplace">
-    <h2>Marketplace</h2>
-    <div *ngIf="loading">Loading...</div>
-    <div class="grid">
-        <div class="card" *ngFor="let crop of listings">
-            <img *ngIf="crop.imageUrl" [src]="crop.imageUrl" alt="{{ crop.cropName }}" />
-            <div class="info">
-                <h3>{{ crop.cropName }}</h3>
-                <p>{{ crop.description }}</p>
-                <p><strong>₹{{ crop.pricePerKg }}</strong> per kg</p>
-                <p>Available: {{ crop.quantity }} kg</p>
-                <p>Status: {{ crop.status }}</p>
-            </div>
-        </div>
+<div class="container my-4">
+  <h2 class="mb-4">Marketplace</h2>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+  </div>
+
+  <div class="row" *ngIf="!loading">
+    <div class="col-md-4 mb-4" *ngFor="let crop of listings">
+      <div class="card h-100 shadow-sm">
+        <img *ngIf="crop.imageUrl" [src]="crop.imageUrl" [alt]="crop.cropName" class="card-img-top" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">{{ crop.cropName }}</h5>
+          <p class="card-text">{{ crop.description }}</p>
+          <p class="card-text"><strong>₹{{ crop.pricePerKg }}</strong> per kg</p>
+          <p class="card-text">Available: {{ crop.quantity }} kg</p>
+          <span class="badge bg-success" *ngIf="crop.status === 'Available'">Available</span>
+          <span class="badge bg-secondary" *ngIf="crop.status !== 'Available'">{{ crop.status }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
