@@ -1,0 +1,9 @@
+<nav class="sidebar">
+    <ul>
+      <li *ngIf="role === 'Farmer'" (click)="navigate('/farmer')">Dashboard</li>
+      <li *ngIf="role === 'Farmer'" (click)="navigate('/marketplace')">Marketplace</li>
+      <li *ngIf="role === 'Dealer'" (click)="navigate('/dealer')">Dashboard</li>
+      <li *ngIf="role === 'Dealer'" (click)="navigate('/marketplace')">Marketplace</li>
+      <li *ngIf="role === 'Admin'" (click)="navigate('/admin')">Admin Dashboard</li>
+    </ul>
+</nav>

@@ -10,21 +10,19 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/Auth`;
 
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) { }
 
-login(credentials: { email: string; password: string }): Observable<any> {
-  return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-    tap((response: any) => {
-      this.tokenService.setToken(response.token, response.expiration);
-    })
-  );
-}
+  login(credentials: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+      tap((response: any) => {
+        this.tokenService.setToken(response.token, response.expiration);
+      })
+    );
+  }
 
-logout(): void {
-  this.tokenService.removeToken();
-}
-
-  
+  logout(): void {
+    this.tokenService.removeToken();
+  }
 
   signup(data: {
     name: string;
@@ -36,12 +34,12 @@ logout(): void {
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, data);
   }
-  
+
 
   getUserRole(): string | null {
     const token = this.tokenService.getToken();
     if (!token) return null;
-  
+
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || null;
@@ -49,5 +47,5 @@ logout(): void {
       return null;
     }
   }
-  
+
 }
