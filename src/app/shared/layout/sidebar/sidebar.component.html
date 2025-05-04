@@ -10,6 +10,12 @@
     <li *ngIf="role === 'Farmer'" class="nav-item">
       <a class="nav-link text-white" (click)="navigate('/marketplace')">Marketplace</a>
     </li>
+    <li *ngIf="role === 'Farmer'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/farmer/add-listing')">Add Listing</a>
+    </li>
+    <li *ngIf="role === 'Farmer'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/farmer/my-listing')">My Listings</a>
+    </li>
     <li *ngIf="role === 'Dealer'" class="nav-item">
       <a class="nav-link text-white" (click)="navigate('/dealer')">Dealer Dashboard</a>
     </li>
@@ -18,6 +24,15 @@
     </li>
     <li *ngIf="role === 'Admin'" class="nav-item">
       <a class="nav-link text-white" (click)="navigate('/admin')">Admin Dashboard</a>
+    </li>
+    <li *ngIf="role === 'Admin'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/marketplace')">Marketplace</a>
+    </li>
+    <li *ngIf="role === 'Admin'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/admin/add-crop')">Add a Crop</a>
+    </li>
+    <li *ngIf="role === 'Admin'" class="nav-item">
+      <a class="nav-link text-white" (click)="navigate('/admin/crops')">Crops</a>
     </li>
   </ul>
   <hr>

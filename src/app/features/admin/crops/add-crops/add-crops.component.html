@@ -1,0 +1,23 @@
+<div class="container p-4">
+    <h3 class="mb-4">Add A Crop</h3>
+  
+    <form [formGroup]="cropForm" (ngSubmit)="onSubmit()">
+  
+      <!-- Crop Type Dropdown -->
+      <div class="mb-3">
+        <label>Crop Type</label>
+        <select class="form-select" formControlName="cropType">
+          <option [value]="" disabled selected>Select Type</option>
+          <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label>Crop Name</label>
+        <input type="text" formControlName="name" >
+      </div>
+  
+      <button type="submit" class="btn btn-success" [disabled]="cropForm.invalid">Add Crop</button>
+    </form>
+  </div>
+  

@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.sub = this.tokenService.isLoggedIn$.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
       this.role = this.tokenService.getRole();
+      console.log('Role:', this.role);
     });
   }
 

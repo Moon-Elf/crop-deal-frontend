@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, HTTP_INTERCEPTORS, withInterceptorsFromDi } from '@angular/common/http';
 import { TokenInterceptor } from './core/auth/token.interceptor';
 import { TokenService } from './core/auth/token.service';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,7 +14,8 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true, // this ensures multiple interceptors can be used
-    }
-  ]
+      multi: true,
+    },
+    provideToastr(),
+  ],
 };

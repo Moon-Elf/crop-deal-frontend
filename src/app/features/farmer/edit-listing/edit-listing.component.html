@@ -1,0 +1,43 @@
+<div class="container p-4">
+    <h3 class="mb-4">Edit Crop Listing</h3>
+
+    <form [formGroup]="listingForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label>Crop Type</label>
+            <input type="text" class="form-control" [value]="listingForm.get('cropType')?.value" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label>Crop Name</label>
+            <input type="text" class="form-control" [value]="getCropNameById(listingForm.get('cropId')?.value)"
+                readonly />
+        </div>
+
+        <div class="mb-3">
+            <label>Price per Kg</label>
+            <input type="number" class="form-control" formControlName="pricePerKg" />
+        </div>
+
+        <div class="mb-3">
+            <label>Quantity (Kg)</label>
+            <input type="number" class="form-control" formControlName="quantity" />
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea class="form-control" formControlName="description" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Current Image</label><br />
+            <img *ngIf="originalImageUrl" [src]="originalImageUrl" style="max-height: 150px;" class="mb-2" />
+        </div>
+
+        <div class="mb-3">
+            <label>Change Image (optional)</label>
+            <input type="file" class="form-control" (change)="onImageSelected($event)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="listingForm.invalid">Update Listing</button>
+    </form>
+</div>

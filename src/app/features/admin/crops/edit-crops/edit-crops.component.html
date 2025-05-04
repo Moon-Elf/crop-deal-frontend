@@ -1,0 +1,28 @@
+<div class="container mt-5" *ngIf="!loading; else spinner">
+    <h3 class="text-success mb-4">Edit Crop</h3>
+  
+    <form [formGroup]="cropForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label>Crop Name</label>
+        <input type="text" formControlName="name" class="form-control" />
+      </div>
+  
+      <div class="mb-3">
+        <label>Crop Type</label>
+        <select class="form-select" formControlName="type">
+          <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-success" [disabled]="cropForm.invalid">Update Crop</button>
+    </form>
+  </div>
+  
+  <ng-template #spinner>
+    <div class="text-center my-5">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+  

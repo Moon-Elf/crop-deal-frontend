@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddCropsComponent } from './crops/add-crops/add-crops.component';
+import { EditCropsComponent } from './crops/edit-crops/edit-crops.component';
+import { ViewCropsComponent } from './crops/view-crops/view-crops.component';
 
 const routes: Routes = [
   {
@@ -8,6 +11,15 @@ const routes: Routes = [
     },
     {
       path: 'dashboard', component: DashboardComponent
+    },
+    {
+      path: 'add-crop', component: AddCropsComponent
+    },
+    {
+      path: 'edit-crop/:id', component: EditCropsComponent
+    },
+    {
+      path: 'crops', component: ViewCropsComponent
     },
 ];
 
