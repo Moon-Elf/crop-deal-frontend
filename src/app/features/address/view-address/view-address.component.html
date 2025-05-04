@@ -1,0 +1,36 @@
+<div class="container mt-4">
+      <h2>Your Addresses</h2>
+      <button class="btn btn-success" (click)="addAddress()">Add Address</button>
+  
+    <div *ngIf="loading">Loading addresses...</div>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+    <div *ngIf="!loading && addresses.length === 0" class="alert alert-info">
+      No addresses found.
+    </div>
+  
+    <table *ngIf="addresses.length > 0" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Street</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip Code</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let address of addresses">
+          <td>{{ address.street }}</td>
+          <td>{{ address.city }}</td>
+          <td>{{ address.state }}</td>
+          <td>{{ address.zipCode }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="editAddress(address.id)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteAddress(address.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

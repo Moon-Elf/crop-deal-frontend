@@ -36,13 +36,18 @@
     </li>
   </ul>
   <hr>
-  <div class="dropup">
-    <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" role="button">
-      Profile
+  <div class="dropup" *ngIf="userName">
+    <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser"
+      data-bs-toggle="dropdown" aria-expanded="false" role="button">
+      {{ userName }}
     </a>
     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
       <li><a class="dropdown-item" (click)="navigate('/profile')">Profile</a></li>
-      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" (click)="navigate('/address')">Address</a></li>
+      <li><a class="dropdown-item" (click)="navigate('/bankaccount')">Bank Account</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
       <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
     </ul>
   </div>

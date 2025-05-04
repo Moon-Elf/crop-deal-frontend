@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <h2>Your Bank Accounts</h2>
+    <button class="btn btn-success mb-3" (click)="onAdd()">Add New Bank Account</button>
+  
+    <div *ngIf="loading">Loading bank accounts...</div>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+    <table class="table table-bordered table-hover" *ngIf="!loading && bankAccounts.length">
+      <thead class="table-dark">
+        <tr>
+          <th>Account Number</th>
+          <th>IFSC Code</th>
+          <th>Bank Name</th>
+          <th>Branch Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let account of bankAccounts">
+          <td>{{ account.accountNumber }}</td>
+          <td>{{ account.ifscCode }}</td>
+          <td>{{ account.bankName }}</td>
+          <td>{{ account.branchName }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="onEdit(account.id)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="onDelete(account.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="!loading && !bankAccounts.length" class="alert alert-info">
+      No bank accounts found.
+    </div>
+  </div>
+  

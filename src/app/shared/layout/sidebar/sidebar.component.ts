@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { ProfileDto } from '../../../models/profile.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,15 +19,35 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class SidebarComponent implements OnInit, OnDestroy {
   role: string = '';
   isLoggedIn: boolean = false;
+  userName: string = '';
   private sub = new Subscription();
 
-  constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) {}
+  constructor(
+    private authService: AuthService, 
+    private tokenService: TokenService, 
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.sub = this.tokenService.isLoggedIn$.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
       this.role = this.tokenService.getRole();
-      console.log('Role:', this.role);
+
+      if (this.isLoggedIn) {
+        this.fetchProfile();
+      }
+    });
+  }
+
+  fetchProfile(): void {
+    this.http.get<ProfileDto>(`${environment.apiUrl}/Profile`).subscribe({
+      next: (profile) => {
+        this.userName = profile.name;
+      },
+      error: () => {
+        this.userName = 'User';
+      }
     });
   }
 

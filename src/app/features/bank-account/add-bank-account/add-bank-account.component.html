@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <h2>Add Bank Account</h2>
+  
+    <form [formGroup]="bankForm" (ngSubmit)="onSubmit()" class="mt-3">
+      <div class="mb-3">
+        <label for="accountNumber" class="form-label">Account Number</label>
+        <input type="text" id="accountNumber" formControlName="accountNumber" class="form-control" />
+        <div class="text-danger" *ngIf="bankForm.get('accountNumber')?.invalid && bankForm.get('accountNumber')?.touched">
+          Account number is required.
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="ifscCode" class="form-label">IFSC Code</label>
+        <input type="text" id="ifscCode" formControlName="ifscCode" class="form-control" />
+        <div class="text-danger" *ngIf="bankForm.get('ifscCode')?.invalid && bankForm.get('ifscCode')?.touched">
+          IFSC code is required.
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="bankName" class="form-label">Bank Name</label>
+        <input type="text" id="bankName" formControlName="bankName" class="form-control" />
+        <div class="text-danger" *ngIf="bankForm.get('bankName')?.invalid && bankForm.get('bankName')?.touched">
+          Bank name is required.
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="branchName" class="form-label">Branch Name</label>
+        <input type="text" id="branchName" formControlName="branchName" class="form-control" />
+        <div class="text-danger" *ngIf="bankForm.get('branchName')?.invalid && bankForm.get('branchName')?.touched">
+          Branch name is required.
+        </div>
+      </div>
+  
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+      <button type="submit" class="btn btn-success" [disabled]="submitting || bankForm.invalid">
+        {{ submitting ? 'Submitting...' : 'Add Bank Account' }}
+      </button>
+    </form>
+  </div>
+  

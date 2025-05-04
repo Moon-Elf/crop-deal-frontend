@@ -33,5 +33,20 @@ export const routes: Routes = [
         path: 'marketplace',
         component: MarketplaceComponent,
         canActivate: [AuthGuard]
-    }      
+    },
+    {
+        path: 'profile',
+        loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'bankaccount',
+        loadChildren: () => import('./features/bank-account/bank-account.module').then(m => m.BankAccountModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'address',
+        loadChildren: () => import('./features/address/address.module').then(m => m.AddressModule),
+        canActivate: [AuthGuard]
+    }
 ];

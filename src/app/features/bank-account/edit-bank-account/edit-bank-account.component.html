@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <h2>Edit Bank Account</h2>
+  
+    <form [formGroup]="bankForm" (ngSubmit)="onSubmit()" class="mt-3">
+      <div class="mb-3">
+        <label for="accountNumber" class="form-label">Account Number</label>
+        <input type="text" id="accountNumber" formControlName="accountNumber" class="form-control" />
+      </div>
+  
+      <div class="mb-3">
+        <label for="ifscCode" class="form-label">IFSC Code</label>
+        <input type="text" id="ifscCode" formControlName="ifscCode" class="form-control" />
+      </div>
+  
+      <div class="mb-3">
+        <label for="bankName" class="form-label">Bank Name</label>
+        <input type="text" id="bankName" formControlName="bankName" class="form-control" />
+      </div>
+  
+      <div class="mb-3">
+        <label for="branchName" class="form-label">Branch Name</label>
+        <input type="text" id="branchName" formControlName="branchName" class="form-control" />
+      </div>
+  
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="submitting || bankForm.invalid">
+        {{ submitting ? 'Updating...' : 'Update Bank Account' }}
+      </button>
+    </form>
+  </div>
+  
