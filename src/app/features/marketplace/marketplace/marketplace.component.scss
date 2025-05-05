@@ -1,0 +1,197 @@
+@import '../../../../styles/variables';
+
+.marketplace {
+  padding: 2rem 1rem;
+  background-color: $light-beige;
+  min-height: calc(100vh - 120px);
+
+  h2 {
+    color: $primary-green;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 10px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: $secondary-green;
+    }
+  }
+
+  .filter-section {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+
+    .form-label {
+      font-weight: 600;
+      color: $earth-brown;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-select, .form-control {
+      border: 1px solid rgba($earth-brown, 0.2);
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: $secondary-green;
+        box-shadow: 0 0 0 0.25rem rgba($secondary-green, 0.25);
+      }
+    }
+  }
+
+  .marketplace-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    background-color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .card-title {
+        color: $primary-green;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      .card-text {
+        color: lighten($dark-text, 20%);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+      }
+
+      .price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $earth-brown;
+        margin-bottom: 0.5rem;
+
+        span {
+          color: $primary-green;
+        }
+      }
+
+      .quantity {
+        color: $dark-text;
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .card-footer {
+      background-color: transparent;
+      border-top: none;
+      padding: 0 1.5rem 1.5rem;
+    }
+  }
+
+  .badge {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &.bg-success {
+      background-color: $secondary-green !important;
+    }
+
+    &.bg-secondary {
+      background-color: lighten($earth-brown, 30%) !important;
+      color: $dark-text;
+    }
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+
+    p {
+      color: lighten($dark-text, 30%);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      background-color: $secondary-green;
+      border-color: $secondary-green;
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+
+      &:hover {
+        background-color: darken($secondary-green, 10%);
+        border-color: darken($secondary-green, 10%);
+      }
+    }
+  }
+
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.25rem;
+    color: $secondary-green;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: 1.5rem 0.5rem;
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-section {
+      padding: 1rem;
+
+      .row > div {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .marketplace-card {
+      .card-img-top {
+        height: 160px;
+      }
+
+      .card-body {
+        padding: 1rem;
+      }
+    }
+  }
+}

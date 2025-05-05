@@ -23,27 +23,42 @@ export class AddAddressComponent {
     private router: Router
   ) {
     this.addressForm = this.fb.group({
-      street: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipCode: ['', Validators.required]
+      street: ['', [Validators.required, Validators.maxLength(100)]],
+      city: ['', [Validators.required, Validators.maxLength(50)]],
+      state: ['', [Validators.required, Validators.maxLength(50)]],
+      zipCode: ['', [Validators.required, Validators.pattern(/^\d{5}(?:[-\s]\d{4})?$/)]]
     });
   }
 
   onSubmit(): void {
-    if (this.addressForm.invalid) return;
+    if (this.addressForm.invalid) {
+      this.markAllAsTouched();
+      return;
+    }
 
     this.loading = true;
+    this.successMessage = '';
+    this.errorMessage = '';
+
     this.addressService.create(this.addressForm.value).subscribe({
       next: () => {
-        this.successMessage = 'Address added successfully!';
-        this.router.navigate(['/address']);
+        this.successMessage = 'Address added successfully! Redirecting...';
+        setTimeout(() => this.router.navigate(['/address']), 1500);
       },
       error: (err) => {
-        this.errorMessage = 'Failed to add address.';
-        console.error(err);
+        this.errorMessage = err.error?.message || 'Failed to add address. Please try again.';
         this.loading = false;
       }
     });
+  }
+
+  markAllAsTouched(): void {
+    Object.values(this.addressForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/address']);
   }
 }

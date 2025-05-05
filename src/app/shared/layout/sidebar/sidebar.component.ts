@@ -63,4 +63,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
   }
+
+  mobileSidebarVisible = false;
+
+  toggleMobileSidebar() {
+    this.mobileSidebarVisible = !this.mobileSidebarVisible;
+  }
 }

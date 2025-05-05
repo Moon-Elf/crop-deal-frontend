@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddressService } from '../../../core/services/address.service';
 import { AddressDto } from '../../../models/address.model';
+import { ConfirmationModalComponent } from '../../../shared/confirmation-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-view-address',
@@ -18,7 +20,8 @@ export class ViewAddressComponent {
 
   constructor(
     private addressService: AddressService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -26,25 +29,42 @@ export class ViewAddressComponent {
   }
 
   fetchAddresses() {
+    this.loading = true;
+    this.error = '';
+    
     this.addressService.getAll().subscribe({
       next: (data) => {
         this.addresses = data;
         this.loading = false;
       },
-      error: () => {
-        this.error = 'Failed to load addresses.';
+      error: (err) => {
+        console.error('Error loading addresses:', err);
+        this.error = 'Failed to load addresses. Please try again later.';
         this.loading = false;
       }
     });
   }
 
   deleteAddress(id: string) {
-    if (!confirm('Are you sure you want to delete this address?')) return;
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.title = 'Delete Address';
+    modalRef.componentInstance.message = 'Are you sure you want to delete this address?';
+    modalRef.componentInstance.confirmText = 'Delete';
+    modalRef.componentInstance.confirmClass = 'btn-danger';
 
-    this.addressService.delete(id).subscribe({
-      next: () => this.fetchAddresses(),
-      error: () => alert('Failed to delete address.')
-    });
+    modalRef.result.then((result) => {
+      if (result === 'confirm') {
+        this.addressService.delete(id).subscribe({
+          next: () => {
+            this.fetchAddresses();
+          },
+          error: (err) => {
+            console.error('Error deleting address:', err);
+            this.error = 'Failed to delete address. Please try again.';
+          }
+        });
+      }
+    }).catch(() => {});
   }
 
   editAddress(id: string) {

@@ -11,13 +11,13 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './edit-crops.component.html',
-  styleUrl: './edit-crops.component.scss'
+  styleUrls: ['./edit-crops.component.scss']
 })
 export class EditCropsComponent implements OnInit {
   cropForm!: FormGroup;
   cropTypes = Object.values(CropType);
   cropId!: string;
-  loading = true;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +29,11 @@ export class EditCropsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cropId = this.route.snapshot.paramMap.get('id')!;
+    this.loadCropData();
+  }
+
+  loadCropData(): void {
+    this.loading = true;
     this.cropService.getCropById(this.cropId).subscribe({
       next: (crop) => {
         this.cropForm = this.fb.group({
@@ -38,24 +43,35 @@ export class EditCropsComponent implements OnInit {
         });
         this.loading = false;
       },
-      error: () => {
+      error: (err) => {
         this.toastr.error('Failed to load crop data');
+        console.error(err);
         this.loading = false;
       }
     });
   }
 
   onSubmit(): void {
-    if (this.cropForm.invalid) return;
+    if (this.cropForm.invalid) {
+      this.cropForm.markAllAsTouched();
+      return;
+    }
 
+    this.loading = true;
     this.cropService.updateCrop(this.cropId, this.cropForm.value).subscribe({
       next: () => {
         this.toastr.success('Crop updated successfully');
         this.router.navigate(['/admin/crops']);
       },
-      error: () => {
+      error: (err) => {
         this.toastr.error('Failed to update crop');
+        console.error(err);
+        this.loading = false;
       }
     });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/admin/crops']);
   }
 }

@@ -1,0 +1,101 @@
+@import '../../../../styles/variables';
+
+.navbar {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  transition: all 0.3s ease;
+
+  // Default styling (non-homepage)
+  background-color: $primary-green !important;
+
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    
+    span:first-child {
+      margin-right: 8px;
+    }
+  }
+
+  .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+    padding: 0.25rem 0.5rem;
+  }
+
+  .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    margin: 0 3px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    &:hover, &.active {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  // Homepage-specific styling
+  &.homepage-navbar {
+    position: absolute;
+    width: 100%;
+    box-shadow: none;
+
+    .navbar-brand {
+      color: white;
+    }
+
+    .nav-link {
+      color: white;
+
+      &:hover, &.active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .navbar-toggler {
+      border-color: rgba(255, 255, 255, 0.7);
+      
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    .navbar-collapse {
+      background-color: darken($primary-green, 5%);
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    &.homepage-navbar .navbar-collapse {
+      background-color: rgba($primary-green, 0.95);
+    }
+
+    .nav-item {
+      margin-bottom: 5px;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    .navbar-brand {
+      font-size: 1.1rem;
+    }
+
+    .nav-link {
+      padding: 5px 8px;
+      font-size: 0.9rem;
+    }
+  }
+}

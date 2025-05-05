@@ -1,20 +1,23 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { passwordValidator } from '../../../core/password.validator';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
   signupForm: FormGroup;
   errorMessage: string = '';
-  isLoading = false;
+  loading = false;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -22,40 +25,60 @@ export class SignupComponent {
     private router: Router
   ) {
     this.signupForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      password: ['', [Validators.required, passwordValidator()]],
       confirmPassword: ['', Validators.required],
-      role: ['Farmer', Validators.required]
+      role: ['', Validators.required]
     }, { validators: this.passwordsMatchValidator });
   }
 
+
   passwordsMatchValidator(form: FormGroup) {
-    const pass = form.get('password')?.value;
-    const confirm = form.get('confirmPassword')?.value;
-    return pass === confirm ? null : { mismatch: true };
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
 
   onSubmit(): void {
-    if (this.signupForm.invalid) return;
-    this.isLoading = true;
+    if (this.signupForm.invalid) {
+      this.signupForm.markAllAsTouched();
+      return;
+    }
 
-    this.authService.signup(this.signupForm.value).subscribe({
+    this.loading = true;
+    this.errorMessage = '';
+
+    const { confirmPassword, ...userData } = this.signupForm.value;
+
+    this.authService.signup(userData).subscribe({
       next: () => {
-        this.isLoading = false;
-        alert('Signup successful! Redirecting to login.');
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/auth/login'], {
+          queryParams: { registered: true }
+        });
       },
       error: (err) => {
-        this.isLoading = false;
-        if (err.status === 400) {
-          this.errorMessage = 'User already exists or invalid input.';
-        } else {
-          this.errorMessage = 'An error occurred. Please try again.';
-        }
+        this.loading = false;
+        this.errorMessage = err.error?.message || 'Registration failed. Please try again.';
         console.error('Signup error:', err);
       }
     });
+  }
+
+  togglePasswordVisibility(field: string): void {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+      const passwordField = document.getElementById('password') as HTMLInputElement;
+      if (passwordField) {
+        passwordField.type = this.showPassword ? 'text' : 'password';
+      }
+    } else {
+      this.showConfirmPassword = !this.showConfirmPassword;
+      const confirmField = document.getElementById('confirmPassword') as HTMLInputElement;
+      if (confirmField) {
+        confirmField.type = this.showConfirmPassword ? 'text' : 'password';
+      }
+    }
   }
 }

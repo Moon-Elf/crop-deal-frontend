@@ -1,0 +1,88 @@
+<div class="marketplace">
+  <div class="container">
+    <h2>Browse Crop Listings</h2>
+
+    <!-- Filters -->
+    <div class="filter-section">
+      <div class="row align-items-end">
+        <div class="col-md-4">
+          <label class="form-label">Crop Type</label>
+          <select class="form-select" [(ngModel)]="selectedType" (change)="filterListings()">
+            <option value="">All Crops</option>
+            <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Search</label>
+          <input type="text" class="form-control" [(ngModel)]="searchTerm" 
+                 (input)="filterListings()" placeholder="Search by crop name..." />
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <button class="btn btn-outline-success" (click)="resetFilters()">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset Filters
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="text-center my-5 py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3 text-muted">Loading crop listings...</p>
+    </div>
+
+    <!-- Listings Grid -->
+    <div class="row g-4" *ngIf="!loading && filteredListings.length > 0">
+      <div class="col-sm-6 col-lg-4 col-xl-3" *ngFor="let crop of filteredListings">
+        <div class="card marketplace-card">
+          <img *ngIf="crop.imageUrl" [src]="crop.imageUrl" [alt]="crop.cropName" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title">{{ crop.cropName }}</h5>
+            <p class="card-text">{{ crop.description || 'No description available' }}</p>
+            
+            <div class="price">
+              <span>₹{{ crop.pricePerKg | number }}</span> per kg
+            </div>
+            
+            <div class="quantity">
+              Available: {{ crop.quantity | number }} kg
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge" [ngClass]="{
+                'bg-success': crop.status === 'Available',
+                'bg-secondary': crop.status !== 'Available'
+              }">
+                {{ crop.status }}
+              </span>
+              
+              <button class="btn btn-sm btn-success" (click)="viewDetails(crop)">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Results -->
+    <div *ngIf="!loading && filteredListings.length === 0" class="no-results">
+      <img src="assets/images/no-results.svg" alt="No results" width="120" class="mb-4">
+      <p>No crop listings match your search criteria.</p>
+      <button class="btn btn-success" (click)="resetFilters()">
+        Reset Filters
+      </button>
+    </div>
+
+    <!-- Pagination (optional) -->
+    <div class="d-flex justify-content-center mt-5" *ngIf="!loading && filteredListings.length > 0">
+      <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="pageSize" 
+                      [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                      (pageChange)="onPageChange()">
+      </ngb-pagination>
+    </div>
+  </div>
+</div>

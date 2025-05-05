@@ -4,24 +4,24 @@ import { CropType } from '../../../../enums/crop-type.enum';
 import { CropDto } from '../../../../models/crop/crop.model';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CropService } from '../../../../core/services/crop.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-view-crops',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './view-crops.component.html',
-  styleUrl: './view-crops.component.scss'
+  styleUrls: ['./view-crops.component.scss']
 })
-
 export class ViewCropsComponent implements OnInit {
   crops: CropDto[] = [];
   filteredCrops: CropDto[] = [];
   cropTypes = Object.values(CropType);
   cropForm!: FormGroup;
   loading = true;
+  deleting = false;
   private cropIdToDelete: string | null = null;
   private deleteModal!: Modal;
 
@@ -30,29 +30,42 @@ export class ViewCropsComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.initForm();
+    this.initModal();
+    this.loadCrops();
+  }
+
+  initForm(): void {
     this.cropForm = this.fb.group({
       cropType: [''],
       searchTerm: ['']
     });
 
-    this.deleteModal = new Modal(document.getElementById('deleteModal')!);
+    this.cropForm.valueChanges.subscribe(() => {
+      this.applyFilters();
+    });
+  }
 
+  initModal(): void {
+    this.deleteModal = new Modal(document.getElementById('deleteModal')!);
+  }
+
+  loadCrops(): void {
+    this.loading = true;
     this.cropService.getAllCrops().subscribe({
       next: (data) => {
         this.crops = data;
-        this.filteredCrops = data;
+        this.filteredCrops = [...data];
         this.loading = false;
       },
-      error: () => {
+      error: (err) => {
+        this.toastr.error('Failed to load crops');
+        console.error(err);
         this.loading = false;
       }
-    });
-
-    this.cropForm.valueChanges.subscribe(() => {
-      this.applyFilters();
     });
   }
 
@@ -76,6 +89,7 @@ export class ViewCropsComponent implements OnInit {
   onDelete(): void {
     if (!this.cropIdToDelete) return;
 
+    this.deleting = true;
     this.cropService.deleteCrop(this.cropIdToDelete).subscribe({
       next: () => {
         this.toastr.success('Crop deleted successfully');
@@ -83,12 +97,15 @@ export class ViewCropsComponent implements OnInit {
         this.applyFilters();
         this.deleteModal.hide();
       },
-      error: () => {
+      error: (err) => {
         this.toastr.error('Failed to delete crop');
+        console.error(err);
         this.deleteModal.hide();
+      },
+      complete: () => {
+        this.deleting = false;
+        this.cropIdToDelete = null;
       }
     });
-
-    this.cropIdToDelete = null;
   }
 }

@@ -1,47 +1,63 @@
-<nav class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark vh-100 sidebar" *ngIf="isLoggedIn">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+<button class="mobile-sidebar-toggle" (click)="toggleMobileSidebar()">
+  <span *ngIf="!mobileSidebarVisible">☰</span>
+  <span *ngIf="mobileSidebarVisible">✕</span>
+</button>
+
+<nav class="sidebar" [class.mobile-visible]="mobileSidebarVisible" *ngIf="isLoggedIn">
+  <a routerLink="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <span class="fs-4">CropDeal</span>
   </a>
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
-    <li *ngIf="role === 'Farmer'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/farmer')">Dashboard</a>
-    </li>
-    <li *ngIf="role === 'Farmer'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/marketplace')">Marketplace</a>
-    </li>
-    <li *ngIf="role === 'Farmer'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/farmer/add-listing')">Add Listing</a>
-    </li>
-    <li *ngIf="role === 'Farmer'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/farmer/my-listing')">My Listings</a>
-    </li>
-    <li *ngIf="role === 'Dealer'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/dealer')">Dealer Dashboard</a>
-    </li>
-    <li *ngIf="role === 'Dealer'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/marketplace')">Marketplace</a>
-    </li>
-    <li *ngIf="role === 'Admin'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/admin')">Admin Dashboard</a>
-    </li>
-    <li *ngIf="role === 'Admin'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/marketplace')">Marketplace</a>
-    </li>
-    <li *ngIf="role === 'Admin'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/admin/add-crop')">Add a Crop</a>
-    </li>
-    <li *ngIf="role === 'Admin'" class="nav-item">
-      <a class="nav-link text-white" (click)="navigate('/admin/crops')">Crops</a>
-    </li>
+    <!-- Farmer Links -->
+    <ng-container *ngIf="role === 'Farmer'">
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/farmer')" data-icon="📊"><span>Dashboard</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/marketplace')" data-icon="🛒"><span>Marketplace</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/farmer/add-listing')" data-icon="➕"><span>Add Listing</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/farmer/my-listing')" data-icon="📋"><span>My Listings</span></a>
+      </li>
+    </ng-container>
+
+    <!-- Dealer Links -->
+    <ng-container *ngIf="role === 'Dealer'">
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/dealer')" data-icon="📊"><span>Dealer Dashboard</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/marketplace')" data-icon="🛒"><span>Marketplace</span></a>
+      </li>
+    </ng-container>
+
+    <!-- Admin Links -->
+    <ng-container *ngIf="role === 'Admin'">
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/admin')" data-icon="📊"><span>Admin Dashboard</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/marketplace')" data-icon="🛒"><span>Marketplace</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/admin/crops')" data-icon="🌾"><span>Manage Crops</span></a>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" (click)="logout()" data-icon="➕"><span>Logout</span></button>
+      </li>
+    </ng-container>
   </ul>
   <hr>
   <div class="dropup" *ngIf="userName">
     <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser"
-      data-bs-toggle="dropdown" aria-expanded="false" role="button">
-      {{ userName }}
+      data-bs-toggle="dropdown" aria-expanded="false">
+      <span>{{ userName }}</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
+    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
       <li><a class="dropdown-item" (click)="navigate('/profile')">Profile</a></li>
       <li><a class="dropdown-item" (click)="navigate('/address')">Address</a></li>
       <li><a class="dropdown-item" (click)="navigate('/bankaccount')">Bank Account</a></li>

@@ -1,51 +1,90 @@
-<div class="container p-4">
-    <h3 class="mb-4">Add Crop Listing</h3>
-  
-    <form [formGroup]="listingForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-  
-      <!-- Crop Type Dropdown -->
-      <div class="mb-3">
-        <label>Crop Type</label>
-        <select class="form-select" formControlName="cropType">
-          <option [value]="" disabled selected>Select Type</option>
-          <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
-        </select>
-      </div>
-  
-      <!-- Crop Name Dropdown -->
-      <div class="mb-3">
-        <label>Crop Name</label>
-        <select class="form-select" formControlName="cropId" [disabled]="!filteredCrops.length">
-          <option [value]="" disabled selected>Select Crop</option>
-          <option *ngFor="let crop of filteredCrops" [value]="crop.id">{{ crop.name }}</option>
-        </select>
-      </div>
-  
-      <!-- Price -->
-      <div class="mb-3">
-        <label>Price per Kg</label>
-        <input type="number" class="form-control" formControlName="pricePerKg" />
-      </div>
-  
-      <!-- Quantity -->
-      <div class="mb-3">
-        <label>Quantity (Kg)</label>
-        <input type="number" class="form-control" formControlName="quantity" />
-      </div>
-  
-      <!-- Description -->
-      <div class="mb-3">
-        <label>Description</label>
-        <textarea class="form-control" formControlName="description" rows="3"></textarea>
-      </div>
-  
-      <!-- Image Upload -->
-      <div class="mb-3">
-        <label>Image (optional)</label>
-        <input type="file" class="form-control" (change)="onImageSelected($event)" />
-      </div>
-  
-      <button type="submit" class="btn btn-success" [disabled]="listingForm.invalid">Add Listing</button>
-    </form>
+<div class="listing-form-container">
+  <div class="form-header">
+    <h2 class="form-title">Add New Crop Listing</h2>
+    <button class="btn btn-back" routerLink="/farmer/my-listing">
+      <i class="bi bi-arrow-left"></i> Back to Listings
+    </button>
   </div>
-  
+
+  <form [formGroup]="listingForm" (ngSubmit)="onSubmit()" class="listing-form">
+    <div class="form-group">
+      <label class="form-label">Crop Type</label>
+      <select class="form-select" formControlName="cropType"
+              [ngClass]="{ 'is-invalid': listingForm.get('cropType')?.touched && listingForm.get('cropType')?.invalid }">
+        <option [value]="" disabled selected>Select Crop Type</option>
+        <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
+      </select>
+      <div *ngIf="listingForm.get('cropType')?.touched && listingForm.get('cropType')?.invalid" class="invalid-feedback">
+        Please select a crop type
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Crop Name</label>
+      <select class="form-select" formControlName="cropId"
+              [ngClass]="{ 'is-invalid': listingForm.get('cropId')?.touched && listingForm.get('cropId')?.invalid }"
+              [disabled]="!filteredCrops.length">
+        <option [value]="" disabled selected>Select Crop</option>
+        <option *ngFor="let crop of filteredCrops" [value]="crop.id">{{ crop.name }}</option>
+      </select>
+      <div *ngIf="listingForm.get('cropId')?.touched && listingForm.get('cropId')?.invalid" class="invalid-feedback">
+        Please select a crop
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Price per Kg (₹)</label>
+          <input type="number" class="form-control" formControlName="pricePerKg" 
+                 [ngClass]="{ 'is-invalid': listingForm.get('pricePerKg')?.touched && listingForm.get('pricePerKg')?.invalid }">
+          <div *ngIf="listingForm.get('pricePerKg')?.touched && listingForm.get('pricePerKg')?.invalid" class="invalid-feedback">
+            Valid price is required (minimum ₹0.01)
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Quantity (kg)</label>
+          <input type="number" class="form-control" formControlName="quantity"
+                 [ngClass]="{ 'is-invalid': listingForm.get('quantity')?.touched && listingForm.get('quantity')?.invalid }">
+          <div *ngIf="listingForm.get('quantity')?.touched && listingForm.get('quantity')?.invalid" class="invalid-feedback">
+            Valid quantity is required (minimum 1 kg)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" formControlName="description" rows="3"
+                placeholder="Add details about your crop (quality, harvest date, etc.)"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Image (optional)</label>
+      <div class="file-upload">
+        <label class="upload-label">
+          <input type="file" (change)="onImageSelected($event)" accept="image/*">
+          <span class="upload-button">
+            <i class="bi bi-cloud-arrow-up"></i> Choose Image
+          </span>
+          <span class="file-name" *ngIf="listingForm.get('image')?.value">
+            {{ listingForm.get('image')?.value?.name }}
+          </span>
+          <span class="file-name" *ngIf="!listingForm.get('image')?.value">
+            No file selected
+          </span>
+        </label>
+      </div>
+      <small class="form-text text-muted">Max file size: 5MB (JPEG, PNG)</small>
+    </div>
+
+    <div class="form-footer">
+      <button type="submit" class="btn btn-submit" [disabled]="listingForm.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"></span>
+        {{ loading ? 'Creating...' : 'Create Listing' }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CropType } from '../../../../enums/crop-type.enum';
 import { CropService } from '../../../../core/services/crop.service';
@@ -12,37 +12,48 @@ import { CreateCropDto } from '../../../../models/crop/create-crop.model';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-crops.component.html',
-  styleUrl: './add-crops.component.scss'
+  styleUrls: ['./add-crops.component.scss']
 })
-export class AddCropsComponent implements OnInit {
-  cropForm!: FormGroup;
+export class AddCropsComponent {
+  cropForm: FormGroup;
   cropTypes = Object.values(CropType);
+  loading = false;
+
   constructor(
     private fb: FormBuilder,
     private cropService: CropService,
     private router: Router,
     private toastr: ToastrService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.cropForm = this.fb.group({
-      cropType: [null, Validators.required],
-      name: [null, Validators.required]
-    })
+      name: ['', Validators.required],
+      type: ['', Validators.required]
+    });
   }
 
   onSubmit(): void {
-    if (this.cropForm.invalid) return;
-  
+    if (this.cropForm.invalid) {
+      this.cropForm.markAllAsTouched();
+      return;
+    }
+
+    this.loading = true;
     const value: CreateCropDto = this.cropForm.value;
-    console.log(value);
 
     this.cropService.createCrop(value).subscribe({
       next: () => {
-        this.toastr.success('Crop Added Successfully', 'Success', {
-          timeOut: 3000
-        })
+        this.toastr.success('Crop added successfully');
+        this.router.navigate(['/admin/crops']);
+      },
+      error: (err) => {
+        this.toastr.error('Failed to add crop');
+        console.error(err);
+        this.loading = false;
       }
-    })
+    });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/admin/crops']);
   }
 }

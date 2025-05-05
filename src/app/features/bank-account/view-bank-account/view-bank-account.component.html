@@ -1,36 +1,59 @@
-<div class="container mt-4">
-    <h2>Your Bank Accounts</h2>
-    <button class="btn btn-success mb-3" (click)="onAdd()">Add New Bank Account</button>
-  
-    <div *ngIf="loading">Loading bank accounts...</div>
-    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-  
-    <table class="table table-bordered table-hover" *ngIf="!loading && bankAccounts.length">
-      <thead class="table-dark">
-        <tr>
-          <th>Account Number</th>
-          <th>IFSC Code</th>
-          <th>Bank Name</th>
-          <th>Branch Name</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let account of bankAccounts">
-          <td>{{ account.accountNumber }}</td>
-          <td>{{ account.ifscCode }}</td>
-          <td>{{ account.bankName }}</td>
-          <td>{{ account.branchName }}</td>
-          <td>
-            <button class="btn btn-sm btn-primary me-2" (click)="onEdit(account.id)">Edit</button>
-            <button class="btn btn-sm btn-danger" (click)="onDelete(account.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <div *ngIf="!loading && !bankAccounts.length" class="alert alert-info">
-      No bank accounts found.
+<div class="bank-account-container">
+  <div class="account-header">
+    <h2 class="account-title">Your Bank Accounts</h2>
+    <button class="btn btn-add" (click)="onAdd()">
+      <i class="bi bi-plus-lg"></i> Add New Account
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Loading your bank accounts...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+  </div>
+
+  <div *ngIf="!loading && bankAccounts.length === 0" class="empty-state">
+    <img src="assets/images/bank-empty.svg" alt="No bank accounts" width="120">
+    <h3>No Bank Accounts Saved</h3>
+    <p>You haven't added any bank accounts yet.</p>
+    <button class="btn btn-primary" (click)="onAdd()">
+      <i class="bi bi-plus-lg"></i> Add Your First Account
+    </button>
+  </div>
+
+  <div *ngIf="bankAccounts.length > 0" class="account-grid">
+    <div *ngFor="let account of bankAccounts" class="account-card">
+      <div class="account-details">
+        <div class="account-meta">
+          <span class="account-number">{{ formatAccountNumber(account.accountNumber) }}</span>
+          <span class="account-ifsc">{{ account.ifscCode }}</span>
+        </div>
+        
+        <div class="account-info">
+          <div class="account-line">
+            <i class="bi bi-bank2"></i>
+            <span>{{ account.bankName }}</span>
+          </div>
+          <div class="account-line">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>{{ account.branchName }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="account-actions">
+        <button class="btn btn-edit" (click)="onEdit(account.id)">
+          <i class="bi bi-pencil-fill"></i> Edit
+        </button>
+        <button class="btn btn-delete" (click)="onDelete(account.id)">
+          <i class="bi bi-trash-fill"></i> Delete
+        </button>
+      </div>
     </div>
   </div>
-  
+</div>

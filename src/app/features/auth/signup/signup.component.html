@@ -1,71 +1,126 @@
-<div class="container">
-    <h2 class="text-center my-4">Sign Up</h2>
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm">
-
-        <!-- Name -->
-        <div class="mb-3">
-            <label for="name" class="form-label">Name:</label>
-            <input id="name" formControlName="name" type="text" class="form-control" placeholder="Enter your name" />
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <img src="assets/images/logo.svg" alt="CropDeal Logo" class="auth-logo">
+            <h1 class="auth-title">Create Account</h1>
+            <p class="auth-subtitle">Join our farming community</p>
         </div>
 
-        <!-- Email -->
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input id="email" formControlName="email" type="email" class="form-control"
-                placeholder="Enter your email" />
-        </div>
-
-        <!-- Phone Number -->
-        <div class="mb-3">
-            <label for="phoneNumber" class="form-label">Phone Number:</label>
-            <input id="phoneNumber" formControlName="phoneNumber" type="text" class="form-control"
-                placeholder="Enter your phone number" />
-        </div>
-
-        <!-- Password -->
-        <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input id="password" formControlName="password" type="password" class="form-control"
-                placeholder="Enter your password" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mb-3">
-            <label for="confirmPassword" class="form-label">Confirm Password:</label>
-            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control"
-                placeholder="Re-enter your password" />
-            <div *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched"
-                class="text-danger small mt-1">
-                Passwords do not match
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form">
+            <div class="form-group">
+                <label for="name" class="form-label">Full Name</label>
+                <input id="name" type="text" formControlName="name" class="form-control"
+                    placeholder="Enter your full name"
+                    [ngClass]="{ 'is-invalid': signupForm.get('name')?.touched && signupForm.get('name')?.invalid }">
+                <div *ngIf="signupForm.get('name')?.touched && signupForm.get('name')?.invalid"
+                    class="invalid-feedback">
+                    Full name is required
+                </div>
             </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input id="email" type="email" formControlName="email" class="form-control"
+                    placeholder="Enter your email"
+                    [ngClass]="{ 'is-invalid': signupForm.get('email')?.touched && signupForm.get('email')?.invalid }">
+                <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid"
+                    class="invalid-feedback">
+                    <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</span>
+                    <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input id="phoneNumber" type="tel" formControlName="phoneNumber" class="form-control"
+                    placeholder="Enter your phone number"
+                    [ngClass]="{ 'is-invalid': signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid }">
+                <div *ngIf="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid"
+                    class="invalid-feedback">
+                    Phone number is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="password-input">
+                  <input id="password" type="password" formControlName="password" class="form-control"
+                         placeholder="Enter your password (min 8 characters)"
+                         [ngClass]="{ 'is-invalid': signupForm.get('password')?.touched && signupForm.get('password')?.invalid }">
+                  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')">
+                    <i class="bi" [class.bi-eye]="showPassword" [class.bi-eye-slash]="!showPassword"></i>
+                  </button>
+                </div>
+                <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="invalid-feedback">
+                  <div *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</div>
+                  <div *ngIf="signupForm.get('password')?.errors?.['passwordStrength']" class="password-requirements">
+                    <p>Password must contain:</p>
+                    <ul>
+                      <li [class.text-success]="signupForm.get('password')?.errors?.['passwordStrength']?.isLengthValid">
+                        At least 8 characters
+                      </li>
+                      <li [class.text-success]="signupForm.get('password')?.errors?.['passwordStrength']?.hasUpperCase">
+                        At least 1 uppercase letter
+                      </li>
+                      <li [class.text-success]="signupForm.get('password')?.errors?.['passwordStrength']?.hasLowerCase">
+                        At least 1 lowercase letter
+                      </li>
+                      <li [class.text-success]="signupForm.get('password')?.errors?.['passwordStrength']?.hasNumber">
+                        At least 1 number
+                      </li>
+                      <li [class.text-success]="signupForm.get('password')?.errors?.['passwordStrength']?.hasSpecialChar">
+                        At least 1 special character (!#$%^&* etc.)
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            <div class="form-group">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <div class="password-input">
+                    <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-control"
+                        placeholder="Re-enter your password"
+                        [ngClass]="{ 'is-invalid': signupForm.get('confirmPassword')?.touched && (signupForm.get('confirmPassword')?.invalid || signupForm.errors?.['mismatch']) }">
+                    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confirmPassword')">
+                        <i class="bi" [class.bi-eye]="!showConfirmPassword"
+                            [class.bi-eye-slash]="showConfirmPassword"></i>
+                    </button>
+                </div>
+                <div *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched"
+                    class="invalid-feedback">
+                    Passwords do not match
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="role" class="form-label">Account Type</label>
+                <select id="role" formControlName="role" class="form-select"
+                    [ngClass]="{ 'is-invalid': signupForm.get('role')?.touched && signupForm.get('role')?.invalid }">
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="Farmer">Farmer</option>
+                    <option value="Dealer">Dealer</option>
+                </select>
+                <div *ngIf="signupForm.get('role')?.touched && signupForm.get('role')?.invalid"
+                    class="invalid-feedback">
+                    Please select your role
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" class="btn btn-primary w-100" [disabled]="signupForm.invalid || loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"></span>
+                    {{ loading ? 'Creating account...' : 'Create Account' }}
+                </button>
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger">
+                <i class="bi bi-exclamation-circle"></i> {{ errorMessage }}
+            </div>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a routerLink="/auth/login" class="auth-link">Sign in</a></p>
         </div>
-
-        <!-- Role -->
-        <div class="mb-3">
-            <label for="role" class="form-label">Role:</label>
-            <select id="role" formControlName="role" class="form-select">
-                <option value="Farmer">Farmer</option>
-                <option value="Dealer">Dealer</option>
-            </select>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-success w-100" [disabled]="isLoading || signupForm.invalid">Sign Up</button>
-
-        <!-- Loading State -->
-        <div *ngIf="isLoading" class="text-center mt-3">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2">Creating account...</p>
-        </div>
-
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="text-danger mt-3 text-center">
-            {{ errorMessage }}
-        </div>
-    </form>
-
-    <!-- Login Link -->
-    <p class="text-center mt-4">
-        Already have an account? <a routerLink="/auth/login" class="link-primary">Login</a>
-    </p>
+    </div>
 </div>

@@ -1,27 +1,201 @@
+@import '../../../../styles/variables';
+
 .sidebar {
-  width: 200px;
+  width: 230px;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   overflow-y: auto;
-  background-color: #343a40;
-}
+  background-color: $primary-green;
+  color: white;
+  transition: all 0.3s ease;
+  z-index: 1020;
+  padding: 1rem;
 
-.nav-link {
-  color: #fff;
-  &:hover, &.active {
-    background-color: #495057;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .fs-4 {
+    font-weight: 700;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    
+    &:before {
+      content: "🌾";
+      margin-right: 8px;
+    }
+  }
+
+  hr {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 1rem 0;
+  }
+
+  .nav-pills {
+    .nav-item {
+      margin-bottom: 5px;
+      
+      .nav-link {
+        color: rgba(255, 255, 255, 0.85);
+        border-radius: 4px;
+        padding: 10px 15px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-weight: 500;
+        
+        &:hover, &.active {
+          background-color: rgba(255, 255, 255, 0.15);
+          color: white;
+        }
+      }
+    }
+  }
+
+  .dropup {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 2rem);
+    padding: 0.5rem 1rem;
+    background-color: darken($primary-green, 5%);
+    border-radius: 4px;
+
+    .dropdown-toggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      
+      &::after {
+        margin-left: 0.5rem;
+      }
+    }
+
+    .dropdown-menu {
+      background-color: darken($primary-green, 5%);
+      border: none;
+      margin-bottom: 10px;
+      
+      .dropdown-item {
+        color: rgba(255, 255, 255, 0.85);
+        padding: 8px 16px;
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          color: white;
+        }
+      }
+      
+      .dropdown-divider {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  /* Tablet View (icons only) */
+  @media (max-width: $breakpoint-lg) {
+    width: 80px;
+    padding: 0.75rem;
+    
+    .fs-4, .nav-link span {
+      display: none;
+    }
+    
+    .nav-link {
+      padding: 12px 5px;
+      text-align: center;
+      margin-bottom: 8px;
+      
+      &::before {
+        content: attr(data-icon);
+        display: block;
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+      }
+    }
+    
+    .dropup {
+      width: calc(100% - 1.5rem);
+      padding: 0.5rem;
+      text-align: center;
+      
+      .dropdown-toggle {
+        justify-content: center;
+        
+        span {
+          display: none;
+        }
+        
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  /* Mobile View (hidden by default) */
+  @media (max-width: $breakpoint-md) {
+    transform: translateX(-100%);
+    width: 260px;
+    box-shadow: none;
+    
+    &.mobile-visible {
+      transform: translateX(0);
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .fs-4, .nav-link span {
+      display: block;
+    }
+
+    .nav-link {
+      text-align: left;
+      padding: 12px 20px;
+      
+      &::before {
+        display: none;
+      }
+    }
+
+    .dropup {
+      text-align: left;
+      width: calc(100% - 2rem);
+      
+      .dropdown-toggle {
+        justify-content: space-between;
+        
+        span {
+          display: inline;
+        }
+        
+        &::after {
+          display: inline-block;
+        }
+      }
+    }
   }
 }
 
-.dropup {
-  position: absolute;
-  bottom: 0;
-  width: 90%;
-  padding: 0.5rem 1rem;
+.mobile-sidebar-toggle {
+  display: none;
+  position: fixed;
+  left: 15px;
+  top: 15px;
+  z-index: 1050;
+  background: $primary-green;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 
-  .dropdown-toggle {
-    cursor: pointer;
+  @media (max-width: $breakpoint-md) {
+    display: block;
   }
 }

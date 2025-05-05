@@ -1,0 +1,136 @@
+<div class="details-container">
+    <div *ngIf="!loading && listing" class="details-card">
+      <div class="row g-4">
+        <!-- Image Section -->
+        <div class="col-md-6">
+          <div class="image-container">
+            <img [src]="listing.imageUrl || 'assets/images/crop-default.jpg'" 
+                 class="crop-image" 
+                 alt="{{ listing.cropName }}" />
+          </div>
+        </div>
+  
+        <!-- Details Section -->
+        <div class="col-md-6">
+          <div class="details-content">
+            <h1 class="crop-title">{{ listing.cropName }}</h1>
+            
+            <div class="crop-meta">
+              <span class="badge crop-type">
+                {{ cropDetails?.type || 'Unknown Type' }}
+              </span>
+              <span class="badge crop-status" 
+                    [ngClass]="{
+                      'available': listing.status === 'Available',
+                      'unavailable': listing.status !== 'Available'
+                    }">
+                {{ listing.status }}
+              </span>
+            </div>
+  
+            <div class="crop-description">
+              <h3>Description</h3>
+              <p>{{ listing.description || 'No description available' }}</p>
+            </div>
+  
+            <div class="crop-specs">
+              <div class="spec-item">
+                <i class="bi bi-tag"></i>
+                <div>
+                  <span class="spec-label">Price per Kg</span>
+                  <span class="spec-value">₹{{ listing.pricePerKg | number }}</span>
+                </div>
+              </div>
+              
+              <div class="spec-item">
+                <i class="bi bi-box-seam"></i>
+                <div>
+                  <span class="spec-label">Quantity Available</span>
+                  <span class="spec-value">{{ listing.quantity | number }} kg</span>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Dealer Actions -->
+            <div *ngIf="isDealer" class="dealer-actions">
+                <button *ngIf="!showFarmerDetails" 
+                        class="btn btn-contact"
+                        (click)="requestFarmerDetails()"
+                        [disabled]="farmerLoading">
+                  <span *ngIf="farmerLoading" class="spinner-border spinner-border-sm" role="status"></span>
+                  {{ farmerLoading ? 'Loading...' : 'Contact Farmer' }}
+                </button>
+            
+                <div *ngIf="showFarmerDetails" class="farmer-card">
+                  <div class="farmer-header">
+                    <i class="bi bi-person-circle"></i>
+                    <h3>Farmer Details</h3>
+                  </div>
+                  
+                  <!-- Farmer Loading State -->
+                  <div *ngIf="farmerLoading" class="text-center py-3">
+                    <div class="spinner-border text-success" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Loading farmer details...</p>
+                  </div>
+            
+                  <!-- Farmer Error State -->
+                  <div *ngIf="farmerError && !farmerLoading" class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    Failed to load farmer details. Please try again.
+                  </div>
+            
+                  <!-- Farmer Details -->
+                  <div *ngIf="!farmerLoading && !farmerError" class="farmer-info">
+                    <div class="info-item">
+                      <i class="bi bi-person"></i>
+                      <span>{{ farmerDetails?.name || 'Name not available' }}</span>
+                    </div>
+                    
+                    <div class="info-item">
+                      <i class="bi bi-telephone"></i>
+                      <span *ngIf="farmerDetails?.phoneNumber; else noPhone">
+                        <a [href]="'tel:' + farmerDetails?.phoneNumber">
+                          {{ farmerDetails?.phoneNumber }}
+                        </a>
+                      </span>
+                      <ng-template #noPhone>
+                        <span>Phone not available</span>
+                      </ng-template>
+                    </div>
+                    
+                    <div class="info-item">
+                      <i class="bi bi-star"></i>
+                      <span *ngIf="farmerDetails?.averageRating !== null && farmerDetails?.averageRating !== undefined; else noRating">
+                        {{ farmerDetails?.averageRating?.toFixed(1) }} 
+                        <span class="rating-stars">⭐️⭐️⭐️⭐️⭐️</span>
+                      </span>
+                      <ng-template #noRating>
+                        <span>No ratings yet</span>
+                      </ng-template>
+                    </div>
+                  </div>
+            
+                  <button class="btn btn-buy" (click)="initiateTransaction()" [disabled]="farmerLoading">
+                    <i class="bi bi-cart-check"></i> Initiate Purchase
+                  </button>
+                </div>
+              </div>
+            </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading crop details...</p>
+    </div>
+  
+    <!-- Error State -->
+    <div *ngIf="error" class="error-state">
+      <i class="bi bi-exclamation-triangle"></i>
+      <p>Failed to load crop details. Please try again later.</p>
+      <button class="btn btn-retry" (click)="ngOnInit()">
+        <i class="bi bi-arrow-clockwise"></i> Retry
+      </button>
+    </div>
+  </div>

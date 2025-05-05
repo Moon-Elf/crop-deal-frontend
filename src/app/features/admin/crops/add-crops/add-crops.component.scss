@@ -1,0 +1,135 @@
+@import '../../../../../styles/variables';
+
+.crop-form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.form-title {
+  color: $primary-green;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btn-back {
+  background-color: transparent;
+  color: $primary-green;
+  border: 1px solid $primary-green;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($primary-green, 0.1);
+  }
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.crop-form {
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    .form-label {
+      font-weight: 600;
+      color: $earth-brown;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-control,
+    .form-select {
+      border: 1px solid rgba($earth-brown, 0.2);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+
+      &:focus {
+        border-color: $secondary-green;
+        box-shadow: 0 0 0 0.25rem rgba($secondary-green, 0.15);
+      }
+
+      &.is-invalid {
+        border-color: #dc3545;
+      }
+    }
+
+    .invalid-feedback {
+      color: #dc3545;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .form-footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+
+      &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+      }
+    }
+
+    .btn-submit {
+      background-color: $primary-green;
+      color: white;
+      border: none;
+
+      &:hover {
+        background-color: darken($primary-green, 10%);
+      }
+    }
+
+    .btn-cancel {
+      background-color: transparent;
+      color: $earth-brown;
+      border: 1px solid rgba($earth-brown, 0.3);
+
+      &:hover {
+        background-color: rgba($earth-brown, 0.05);
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .crop-form-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .form-footer {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

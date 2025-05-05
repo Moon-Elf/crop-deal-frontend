@@ -1,7 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import Bootstrap */
 @import 'bootstrap/scss/bootstrap';
-
+// Add this at the top
+@import "bootstrap-icons/font/bootstrap-icons.css";
+/* Global Styles */
 body, html {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5dc; // Light beige background
+  color: #333333;
 }
+
+/* Color Variables */
+$primary-green: #3a7d44;
+$secondary-green: #6bbd6e;
+$earth-brown: #8b5a2b;
+$light-beige: #f5f5dc;
+$dark-text: #333333;
+$accent-orange: #e67e22;
+
+/* Global Classes */
+.btn-primary {
+  background-color: $primary-green;
+  border-color: darken($primary-green, 5%);
+  
+  &:hover {
+    background-color: darken($primary-green, 10%);
+    border-color: darken($primary-green, 15%);
+  }
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+    padding: 15px !important;
+  }
+}
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

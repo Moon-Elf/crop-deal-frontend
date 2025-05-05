@@ -1,12 +1,34 @@
+@import '../../../styles/variables';
+
 .layout-container {
   display: flex;
+  min-height: calc(100vh - 56px); // Account for navbar height
 }
 
 .main-content {
   margin-left: 230px;
   padding: 20px;
+  flex-grow: 1;
+  transition: all 0.3s ease;
+  background-color: $light-beige;
 
-  &.w-100 {
+  &.full-width {
     margin-left: 0;
+    padding: 0;
+  }
+}
+
+// Homepage specific styles
+.homepage-layout {
+  .main-content {
+    margin-left: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
   }
 }

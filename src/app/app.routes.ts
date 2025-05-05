@@ -2,10 +2,12 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';  // Import RoleGuard
 import { DashboardComponent } from './features/farmer/dashboard/dashboard.component';
-import { MarketplaceComponent } from './features/marketplace/marketplace.component';
+import { MarketplaceComponent } from './features/marketplace/marketplace/marketplace.component';
+import { HomeComponent } from './pages/home/home.component';
+import { DetailsComponent } from './features/marketplace/details/details.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'farmer', pathMatch: 'full' },
+    { path: '', pathMatch: 'full', component: HomeComponent },
     {
         path: 'auth',
         loadChildren: () =>
@@ -32,6 +34,11 @@ export const routes: Routes = [
     {
         path: 'marketplace',
         component: MarketplaceComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'marketplace/:id',
+        component: DetailsComponent,
         canActivate: [AuthGuard]
     },
     {

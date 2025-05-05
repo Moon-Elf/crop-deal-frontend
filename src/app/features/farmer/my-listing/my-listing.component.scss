@@ -1,37 +1,229 @@
+@import '../../../../styles/variables';
+
+.listings-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.listings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.listings-title {
+  color: $primary-green;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btn-add {
+  background-color: $primary-green;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: darken($primary-green, 10%);
+    transform: translateY(-2px);
+  }
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: $primary-green;
+
+  p {
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+
+  h3 {
+    color: $primary-green;
+    margin: 1rem 0 0.5rem;
+  }
+
+  p {
+    color: lighten($dark-text, 20%);
+    margin-bottom: 1.5rem;
+  }
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
 .listing-card {
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   }
-  
-  .listing-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-  }
-  
-  .card-img-top {
+
+  .card-image {
+    position: relative;
     height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid #dee2e6;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+
+      &.available {
+        background-color: $secondary-green;
+      }
+
+      &.sold {
+        background-color: lighten($earth-brown, 20%);
+      }
+    }
   }
-  
-  h2 {
-    font-weight: 600;
-    color: #388e3c;
+
+  .card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    .card-title {
+      color: $primary-green;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-description {
+      color: lighten($dark-text, 20%);
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-details {
+      margin-bottom: 1.5rem;
+
+      .detail-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        color: $dark-text;
+
+        i {
+          color: $primary-green;
+          margin-right: 0.75rem;
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.75rem;
+      border-top: 1px solid rgba($earth-brown, 0.1);
+      padding-top: 1rem;
+
+      .btn {
+        flex: 1;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+
+        i {
+          margin-right: 0.4rem;
+        }
+      }
+
+      .btn-edit {
+        background-color: rgba($secondary-green, 0.1);
+        color: $primary-green;
+        border: 1px solid rgba($primary-green, 0.3);
+
+        &:hover {
+          background-color: rgba($secondary-green, 0.2);
+        }
+      }
+
+      .btn-delete {
+        background-color: rgba(#dc3545, 0.1);
+        color: #dc3545;
+        border: 1px solid rgba(#dc3545, 0.3);
+
+        &:hover {
+          background-color: rgba(#dc3545, 0.2);
+        }
+      }
+    }
   }
-  
-  .badge {
-    font-size: 0.85rem;
-    padding: 0.5em 0.75em;
-    border-radius: 0.5rem;
+}
+
+@media (max-width: $breakpoint-md) {
+  .listings-container {
+    padding: 1rem;
   }
-  
-  .spinner-border {
-    width: 3rem;
-    height: 3rem;
+
+  .listings-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .btn {
-    border-radius: 0.375rem;
+
+  .listing-card {
+    .card-actions {
+      flex-direction: column;
+
+      .btn {
+        width: 100%;
+      }
+    }
   }
-  
+}

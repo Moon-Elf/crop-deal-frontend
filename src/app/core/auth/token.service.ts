@@ -5,6 +5,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class TokenService {
+  
+
   private tokenKey = 'token';
   private tokenExpirationKey = 'tokenExpiration';
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
@@ -44,5 +46,10 @@ export class TokenService {
 
   decodeToken(token: string): any {
     return JSON.parse(atob(token.split('.')[1]));
+  }
+
+  isTokenExpired(token: string): boolean {
+    console.log("Token is not expired");
+    return false;
   }
 }

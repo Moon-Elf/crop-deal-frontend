@@ -3,17 +3,20 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { passwordValidator } from '../../../core/password.validator';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
+  loading = false;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -22,41 +25,54 @@ export class LoginComponent {
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, passwordValidator()]]
     });
   }
 
 
   ngOnInit() {
-    const role = this.authService.getUserRole();
-    if (role === 'Farmer') this.router.navigate(['/farmer']);
-    else if (role === 'Dealer') this.router.navigate(['/dealer']);
-    else if (role === 'Admin') this.router.navigate(['/admin']);
+    if (this.authService.isLoggedIn()) {
+      this.redirectBasedOnRole();
+    }
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+    const passwordField = document.getElementById('password') as HTMLInputElement;
+    passwordField.type = this.showPassword ? 'text' : 'password';
   }
 
   onSubmit(): void {
     if (this.loginForm.invalid) return;
 
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (response) => {
-        console.log(response);
-        const role = this.authService.getUserRole();
-        console.log(role);
+    this.loading = true;
+    this.errorMessage = '';
 
-        if (role == 'Farmer') {
-          this.router.navigate(['/farmer']);
-        } else if (role == 'Dealer') {
-          this.router.navigate(['/dealer']);
-        } else if (role == 'Admin') {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/']); // fallback
-        }
+    this.authService.login(this.loginForm.value).subscribe({
+      next: () => {
+        this.redirectBasedOnRole();
       },
       error: (err) => {
-        this.errorMessage = 'Invalid email or password';
+        this.loading = false;
+        this.errorMessage = err.error?.message || 'Invalid email or password';
       }
     });
   }
-}
 
+  private redirectBasedOnRole(): void {
+    const role = this.authService.getUserRole();
+    switch (role) {
+      case 'Farmer':
+        this.router.navigate(['/farmer']);
+        break;
+      case 'Dealer':
+        this.router.navigate(['/dealer']);
+        break;
+      case 'Admin':
+        this.router.navigate(['/admin']);
+        break;
+      default:
+        this.router.navigate(['/']);
+    }
+  }
+}

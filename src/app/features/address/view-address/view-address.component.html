@@ -1,36 +1,52 @@
-<div class="container mt-4">
-      <h2>Your Addresses</h2>
-      <button class="btn btn-success" (click)="addAddress()">Add Address</button>
-  
-    <div *ngIf="loading">Loading addresses...</div>
-    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-  
-    <div *ngIf="!loading && addresses.length === 0" class="alert alert-info">
-      No addresses found.
-    </div>
-  
-    <table *ngIf="addresses.length > 0" class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Street</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Zip Code</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let address of addresses">
-          <td>{{ address.street }}</td>
-          <td>{{ address.city }}</td>
-          <td>{{ address.state }}</td>
-          <td>{{ address.zipCode }}</td>
-          <td>
-            <button class="btn btn-sm btn-primary me-2" (click)="editAddress(address.id)">Edit</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteAddress(address.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="address-container">
+  <div class="address-header">
+    <h2 class="address-title">Your Addresses</h2>
+    <button class="btn btn-add" (click)="addAddress()">
+      <i class="bi bi-plus-lg"></i> Add New Address
+    </button>
   </div>
-  
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Loading your addresses...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+  </div>
+
+  <div *ngIf="!loading && addresses.length === 0" class="empty-state">
+    <img src="assets/images/address-empty.svg" alt="No addresses" width="120">
+    <h3>No Addresses Saved</h3>
+    <p>You haven't added any addresses yet.</p>
+    <button class="btn btn-primary" (click)="addAddress()">
+      <i class="bi bi-plus-lg"></i> Add Your First Address
+    </button>
+  </div>
+
+  <div *ngIf="addresses.length > 0" class="address-grid">
+    <div *ngFor="let address of addresses" class="address-card">
+      <div class="address-details">
+        <div class="address-line">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>{{ address.street }}</span>
+        </div>
+        <div class="address-line">
+          <i class="bi bi-building"></i>
+          <span>{{ address.city }}, {{ address.state }} {{ address.zipCode }}</span>
+        </div>
+      </div>
+      
+      <div class="address-actions">
+        <button class="btn btn-edit" (click)="editAddress(address.id)">
+          <i class="bi bi-pencil-fill"></i> Edit
+        </button>
+        <button class="btn btn-delete" (click)="deleteAddress(address.id)">
+          <i class="bi bi-trash-fill"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

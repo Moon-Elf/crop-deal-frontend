@@ -9,4 +9,5 @@ export interface CropListing {
     status: string;
     createdAt: string;
     updatedAt: string;
+    farmerId: string;
 }

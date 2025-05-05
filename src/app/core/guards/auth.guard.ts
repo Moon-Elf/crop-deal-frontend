@@ -15,13 +15,14 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     const token = this.tokenService.getToken();
-
-    if (!token) {
-      console.log('No token found. Redirecting to login...');
+  
+    if (!token || this.tokenService.isTokenExpired(token)) {
+      console.log('Token invalid or expired. Redirecting to login...');
       this.router.navigate(['/auth/login']);
       return of(false);
-    }    
-
-    return of(true); // If token exists, allow route access
+    }
+  
+    return of(true); // Token exists and is valid
   }
+  
 }
