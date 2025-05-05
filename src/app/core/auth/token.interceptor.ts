@@ -10,6 +10,8 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    
+
     console.log('Interceptor executing!');
     const token = this.tokenService.getToken();
     console.log('Token in Interceptor:', token);  // Log to check if token is present
@@ -24,6 +26,18 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     } else {
       console.log('No token found');
+    }
+
+    const publicUrls = [
+      'api/CropListing',
+    ];
+  
+    // Check if request URL is public
+    const isPublic = publicUrls.some(url => req.url.includes(url));
+  
+    if (isPublic) {
+      // Skip token attachment
+      return next.handle(req);
     }
   
     return next.handle(authReq).pipe(

@@ -34,7 +34,7 @@ export const routes: Routes = [
     {
         path: 'marketplace',
         component: MarketplaceComponent,
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
     {
         path: 'marketplace/:id',

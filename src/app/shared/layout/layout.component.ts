@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -15,7 +16,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 export class LayoutComponent {
   currentRoute: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
@@ -24,6 +25,10 @@ export class LayoutComponent {
   }
 
   isHomePage(): boolean {
+    if(!this.authService.isLoggedIn() && this.currentRoute === '/marketplace')
+    {
+      return true;
+    }
     return this.currentRoute === '/' || this.isAuthPage();
   }
 
