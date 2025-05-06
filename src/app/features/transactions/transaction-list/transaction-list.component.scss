@@ -1,0 +1,287 @@
+@import '../../../../styles/variables';
+
+.transaction-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.transaction-title {
+    color: $primary-green;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    i {
+        font-size: 1.5rem;
+    }
+}
+
+.transaction-filter {
+    min-width: 200px;
+
+    .form-select {
+        border: 1px solid rgba($earth-brown, 0.2);
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+
+        &:focus {
+            border-color: $secondary-green;
+            box-shadow: 0 0 0 0.25rem rgba($secondary-green, 0.15);
+        }
+    }
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: $primary-green;
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border-width: 0.25rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-weight: 500;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+
+    h3 {
+        color: $primary-green;
+        margin: 1rem 0 0.5rem;
+    }
+
+    p {
+        color: lighten($dark-text, 20%);
+        margin-bottom: 1.5rem;
+    }
+}
+
+.transaction-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.transaction-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba($earth-brown, 0.1);
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.transaction-id {
+    font-size: 0.85rem;
+    color: lighten($dark-text, 30%);
+    margin-bottom: 0.5rem;
+}
+
+.transaction-main {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.transaction-info {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.transaction-crop,
+.transaction-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+
+    i {
+        color: $primary-green;
+        font-size: 1.1rem;
+    }
+}
+
+.transaction-pricing {
+    display: flex;
+    gap: 1.5rem;
+    text-align: right;
+}
+
+.transaction-price,
+.transaction-total {
+    .label {
+        display: block;
+        font-size: 0.85rem;
+        color: lighten($dark-text, 20%);
+    }
+
+    .value {
+        font-weight: 600;
+        color: $earth-brown;
+    }
+}
+
+.transaction-total .value {
+    font-size: 1.1rem;
+    color: $primary-green;
+}
+
+.transaction-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba($earth-brown, 0.1);
+}
+
+.transaction-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .badge {
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.85rem;
+    }
+
+    .status-pending {
+        background-color: rgba(#ffc107, 0.15);
+        color: darken(#ffc107, 20%);
+    }
+
+    .status-completed {
+        background-color: rgba($secondary-green, 0.15);
+        color: darken($secondary-green, 20%);
+    }
+
+    .status-cancelled {
+        background-color: rgba(#dc3545, 0.15);
+        color: darken(#dc3545, 10%);
+    }
+
+    .transaction-date {
+        font-size: 0.9rem;
+        color: lighten($dark-text, 20%);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        i {
+            color: lighten($dark-text, 30%);
+        }
+    }
+}
+
+.btn-details {
+    background-color: rgba($primary-green, 0.1);
+    color: $primary-green;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+        background-color: rgba($primary-green, 0.2);
+    }
+
+    i {
+        font-size: 0.9rem;
+    }
+}
+
+.transaction-summary {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    .summary-item {
+        text-align: right;
+
+        .label {
+            display: block;
+            font-size: 0.9rem;
+            color: lighten($dark-text, 20%);
+        }
+
+        .value {
+            font-weight: 600;
+            color: $primary-green;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .transaction-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .transaction-filter {
+        width: 100%;
+    }
+
+    .transaction-main {
+        flex-direction: column;
+    }
+
+    .transaction-pricing {
+        text-align: left;
+        justify-content: flex-start;
+    }
+
+    .transaction-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .transaction-summary {
+        justify-content: space-between;
+        gap: 1rem;
+    }
+}

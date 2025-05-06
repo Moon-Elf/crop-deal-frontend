@@ -1,0 +1,196 @@
+<div class="transaction-view-container">
+    <div *ngIf="loading" class="loading-state">
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Loading transaction details...</p>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle-fill"></i> Failed to load transaction details.
+    </div>
+
+    <div class="button-group">
+        <button class="btn btn-back" routerLink="/transactions">
+            <i class="bi bi-arrow-left"></i> Back to Transactions
+        </button>
+        <button class="btn btn-download" (click)="downloadReceipt()">
+            <i class="bi bi-download"></i> Download Receipt
+        </button>
+    </div>
+
+    <div *ngIf="transaction && cropListing && dealer && farmer && crop" class="transaction-details">
+        <div class="transaction-header">
+            <h2>
+                <i class="bi bi-receipt"></i> Transaction #{{ transaction.id | shortenId }}
+            </h2>
+            <span class="transaction-status" [ngClass]="{
+          'status-pending': transaction.status === 'Pending',
+          'status-completed': transaction.status === 'Completed',
+          'status-cancelled': transaction.status === 'Cancelled'
+        }">
+                {{ transaction.status }}
+            </span>
+        </div>
+
+        <p class="transaction-date">
+            <i class="bi bi-calendar"></i> {{ transaction.createdAt | date:'medium' }}
+        </p>
+
+        <div class="transaction-sections">
+            <div class="transaction-section">
+                <h3><i class="bi bi-person"></i> Farmer Details</h3>
+                <div class="detail-item">
+                    <span class="label">Name:</span>
+                    <span class="value">{{ farmer.name }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Email:</span>
+                    <span class="value">{{ farmer.email }}</span>
+                </div>
+                <div *ngIf="farmer.phoneNumber" class="detail-item">
+                    <span class="label">Phone:</span>
+                    <span class="value">{{ farmer.phoneNumber }}</span>
+                </div>
+            </div>
+
+            <div class="transaction-section">
+                <h3><i class="bi bi-person"></i> Dealer Details</h3>
+                <div class="detail-item">
+                    <span class="label">Name:</span>
+                    <span class="value">{{ dealer.name }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Email:</span>
+                    <span class="value">{{ dealer.email }}</span>
+                </div>
+                <div *ngIf="dealer.phoneNumber" class="detail-item">
+                    <span class="label">Phone:</span>
+                    <span class="value">{{ dealer.phoneNumber }}</span>
+                </div>
+            </div>
+
+            <div class="transaction-section">
+                <h3><i class="bi bi-basket"></i> Crop Details</h3>
+                <div class="detail-item">
+                    <span class="label">Name:</span>
+                    <span class="value">{{ crop.name }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Type:</span>
+                    <span class="value">{{ crop.type }}</span>
+                </div>
+            </div>
+
+            <div class="transaction-section">
+                <h3><i class="bi bi-cash-stack"></i> Transaction Summary</h3>
+                <div class="detail-item">
+                    <span class="label">Quantity:</span>
+                    <span class="value">{{ transaction.quantity }} kg</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Original Price/kg:</span>
+                    <span class="value">₹{{ cropListing.pricePerKg | number:'1.2-2' }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Final Price/kg:</span>
+                    <span class="value">₹{{ transaction.finalPricePerKg | number:'1.2-2' }}</span>
+                </div>
+                <div class="detail-item total">
+                    <span class="label">Total Amount:</span>
+                    <span class="value">₹{{ transaction.totalPrice | number:'1.2-2' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="userRole === 'Farmer' && transaction.status === 'Pending'" class="transaction-actions">
+            <button class="btn btn-confirm" (click)="transConfirm()">
+                <i class="bi bi-check-circle"></i> Confirm Transaction
+            </button>
+            <button class="btn btn-cancel" (click)="transCancel()">
+                <i class="bi bi-x-circle"></i> Cancel Transaction
+            </button>
+        </div>
+    </div>
+    <div #receipt class="receipt-template" style="position: absolute; left: -9999px; top: 0; width: 210mm;">
+        <div class="receipt-container">
+            <div class="receipt-header">
+                <h2>CropDeal Transaction Receipt</h2>
+            </div>
+
+            <div class="receipt-details">
+                <div class="detail-row">
+                    <span class="label">Transaction ID:</span>
+                    <span class="value">{{ transaction?.id }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Date:</span>
+                    <span class="value">{{ transaction?.createdAt | date:'medium' }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Status:</span>
+                    <span class="value">{{ transaction?.status }}</span>
+                </div>
+            </div>
+
+            <div class="receipt-section">
+                <h3>Parties Involved</h3>
+                <div class="parties-container">
+                    <div class="party-card">
+                        <h4>Farmer</h4>
+                        <div class="party-details">
+                            <p><strong>Name:</strong> {{ farmer?.name }}</p>
+                            <p><strong>Email:</strong> {{ farmer?.email }}</p>
+                            <p *ngIf="farmer?.phoneNumber"><strong>Phone:</strong> {{ farmer?.phoneNumber }}</p>
+                        </div>
+                    </div>
+                    <div class="party-card">
+                        <h4>Dealer</h4>
+                        <div class="party-details">
+                            <p><strong>Name:</strong> {{ dealer?.name }}</p>
+                            <p><strong>Email:</strong> {{ dealer?.email }}</p>
+                            <p *ngIf="dealer?.phoneNumber"><strong>Phone:</strong> {{ dealer?.phoneNumber }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="receipt-section">
+                <h3>Crop Details</h3>
+                <div class="detail-row">
+                    <span class="label">Name:</span>
+                    <span class="value">{{ crop?.name }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Type:</span>
+                    <span class="value">{{ crop?.type }}</span>
+                </div>
+            </div>
+
+            <div class="receipt-section">
+                <h3>Transaction Summary</h3>
+                <div class="detail-row">
+                    <span class="label">Quantity:</span>
+                    <span class="value">{{ transaction?.quantity }} kg</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Original Price/kg:</span>
+                    <span class="value">₹{{ cropListing?.pricePerKg | number:'1.2-2' }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Final Price/kg:</span>
+                    <span class="value">₹{{ transaction?.finalPricePerKg | number:'1.2-2' }}</span>
+                </div>
+                <div class="detail-row total">
+                    <span class="label">Total Amount:</span>
+                    <span class="value">₹{{ transaction?.totalPrice | number:'1.2-2' }}</span>
+                </div>
+            </div>
+
+            <div class="receipt-footer">
+                <p>Thank you for using CropDeal!</p>
+                <p>This is an official transaction receipt.</p>
+            </div>
+        </div>
+    </div>
+</div>

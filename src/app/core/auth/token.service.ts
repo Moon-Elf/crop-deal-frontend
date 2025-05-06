@@ -41,7 +41,14 @@ export class TokenService {
     const token = this.getToken();
     if (!token) return '';
     const decoded: any = this.decodeToken(token);
-    return decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || '';
+    return decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || 'NA';
+  }
+
+  getId(): string {
+    const token = this.getToken();
+    if (!token) return '';
+    const decoded: any = this.decodeToken(token);
+    return decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || 'NA';
   }
 
   decodeToken(token: string): any {

@@ -1,0 +1,433 @@
+@import '../../../../styles/variables';
+
+.transaction-view-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.btn-back {
+    background-color: transparent;
+    color: $primary-green;
+    border: 1px solid $primary-green;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-bottom: 2rem;
+
+    &:hover {
+        background-color: rgba($primary-green, 0.1);
+    }
+
+    i {
+        margin-right: 0.5rem;
+    }
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: $primary-green;
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border-width: 0.25rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-weight: 500;
+    }
+}
+
+.transaction-details {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h2 {
+        color: $primary-green;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        i {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+// Update the transaction-status class
+.transaction-status {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: '';
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+    }
+
+    &.status-pending {
+        background-color: rgba(#ffc107, 0.15);
+        color: darken(#ffc107, 20%);
+
+        &::before {
+            background-color: #ffc107;
+        }
+    }
+
+    &.status-completed {
+        background-color: rgba($secondary-green, 0.15);
+        color: darken($secondary-green, 20%);
+
+        &::before {
+            background-color: $secondary-green;
+        }
+    }
+
+    &.status-cancelled {
+        background-color: rgba(#dc3545, 0.15);
+        color: darken(#dc3545, 10%);
+
+        &::before {
+            background-color: #dc3545;
+        }
+    }
+}
+
+.transaction-date {
+    color: lighten($dark-text, 20%);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+        color: lighten($dark-text, 30%);
+    }
+}
+
+.transaction-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.transaction-section {
+    background-color: rgba($light-beige, 0.5);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid rgba($earth-brown, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    h3 {
+        margin-top: 0;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba($earth-brown, 0.1);
+    }
+
+    i {
+        color: $primary-green;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+
+    .label {
+        color: $earth-brown;
+        font-weight: 600;
+    }
+
+    .value {
+        font-weight: 500;
+        text-align: right;
+    }
+
+    &.total {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba($earth-brown, 0.2);
+
+        .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+    }
+}
+
+.transaction-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba($earth-brown, 0.1);
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        i {
+            font-size: 1.1rem;
+        }
+    }
+
+    .btn-confirm {
+        background-color: $secondary-green;
+        color: white;
+        border: none;
+
+        &:hover {
+            background-color: darken($secondary-green, 10%);
+        }
+    }
+
+    .btn-cancel {
+        background-color: transparent;
+        color: #dc3545;
+        border: 1px solid #dc3545;
+
+        &:hover {
+            background-color: rgba(#dc3545, 0.1);
+        }
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .transaction-sections {
+        gap: 1rem;
+    }
+
+    .transaction-section {
+        padding: 1rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    .transaction-actions {
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
+
+.btn-download {
+    background-color: rgba($primary-green, 0.1);
+    color: $primary-green;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 0.5rem;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    i {
+        font-size: 0.9rem;
+    }
+}
+
+// Receipt template styles (hidden on page but used for PDF)
+.receipt-template {
+    background-color: white;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+
+    .receipt-container {
+        border: 1px solid rgba($earth-brown, 0.2);
+        padding: 2rem;
+        border-radius: 8px;
+    }
+
+    .receipt-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba($earth-brown, 0.2);
+
+        h2 {
+            color: $primary-green;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+    }
+
+    .receipt-details {
+        margin-bottom: 1.5rem;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+
+        .label {
+            font-weight: 600;
+            color: $earth-brown;
+        }
+
+        .value {
+            text-align: right;
+        }
+
+        &.total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba($earth-brown, 0.3);
+            font-size: 1.1rem;
+
+            .value {
+                color: $primary-green;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .status-badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        &.status-pending {
+            background-color: rgba(#ffc107, 0.15);
+            color: darken(#ffc107, 20%);
+        }
+
+        &.status-completed {
+            background-color: rgba($secondary-green, 0.15);
+            color: darken($secondary-green, 20%);
+        }
+
+        &.status-cancelled {
+            background-color: rgba(#dc3545, 0.15);
+            color: darken(#dc3545, 10%);
+        }
+    }
+
+    .receipt-section {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba($earth-brown, 0.1);
+
+        h3 {
+            color: $earth-brown;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .parties-container {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1rem;
+
+        .party-card {
+            flex: 1;
+            padding: 1rem;
+            background-color: rgba($primary-green, 0.05);
+            border-radius: 6px;
+
+            h4 {
+                color: $primary-green;
+                margin-top: 0;
+                margin-bottom: 1rem;
+                font-size: 1.1rem;
+            }
+
+            p {
+                margin: 0.5rem 0;
+            }
+        }
+    }
+
+    .receipt-footer {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba($earth-brown, 0.2);
+        text-align: center;
+        font-size: 0.9rem;
+        color: lighten($dark-text, 20%);
+
+        p {
+            margin: 0.25rem 0;
+        }
+    }
+}
+
+// Add to your SCSS file
+.button-group {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn-back,
+.btn-download {
+    margin: 0; // Remove individual margins
+}

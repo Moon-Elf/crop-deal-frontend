@@ -40,7 +40,7 @@ export class AuthService {
   }
 
 
-  getUserRole(): string | null {
+  getUserRole(): string {
     return this.tokenService.getRole();
   }
 

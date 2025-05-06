@@ -1,0 +1,93 @@
+<div class="transaction-container">
+    <div class="transaction-header">
+        <h2 class="transaction-title">
+            <i class="bi bi-receipt"></i> My Transactions
+        </h2>
+        <div class="transaction-filter" *ngIf="transactions.length > 0">
+            <select class="form-select" [(ngModel)]="statusFilter" (change)="filterTransactions()">
+                <option value="">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="loading-state">
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Loading your transactions...</p>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle-fill"></i> Failed to load transactions. Please try again later.
+    </div>
+
+    <div *ngIf="!loading && filteredTransactions.length === 0" class="empty-state">
+        <img src="assets/images/transaction-empty.svg" alt="No transactions" width="120">
+        <h3>No Transactions Found</h3>
+        <p *ngIf="statusFilter">No transactions match the selected filter.</p>
+        <p *ngIf="!statusFilter">You haven't made any transactions yet.</p>
+    </div>
+
+    <div *ngIf="filteredTransactions.length > 0" class="transaction-list">
+        <div class="transaction-card" *ngFor="let tx of filteredTransactions; let i = index">
+            <div class="transaction-id">#{{ tx.id | shortenId }}</div>
+
+            <div class="transaction-main">
+                <div class="transaction-info">
+                    <div class="transaction-crop">
+                        <i class="bi bi-basket-fill"></i>
+                        <span>{{ tx.listingId | shortenId }}</span>
+                    </div>
+                    <div class="transaction-quantity">
+                        <i class="bi bi-box-seam"></i>
+                        <span>{{ tx.quantity }} kg</span>
+                    </div>
+                </div>
+
+                <div class="transaction-pricing">
+                    <div class="transaction-price">
+                        <span class="label">Price/kg:</span>
+                        <span class="value">₹{{ tx.finalPricePerKg | number:'1.2-2' }}</span>
+                    </div>
+                    <div class="transaction-total">
+                        <span class="label">Total:</span>
+                        <span class="value">₹{{ tx.totalPrice | number:'1.2-2' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="transaction-footer">
+                <div class="transaction-status">
+                    <span class="badge" [ngClass]="{
+              'status-pending': tx.status === 'Pending',
+              'status-completed': tx.status === 'Completed',
+              'status-cancelled': tx.status === 'Cancelled'
+            }">
+                        {{ tx.status }}
+                    </span>
+                    <span class="transaction-date">
+                        <i class="bi bi-calendar"></i> {{ tx.createdAt | date:'mediumDate' }}
+                    </span>
+                </div>
+
+                <button class="btn btn-details" (click)="viewDetails(tx.id)">
+                    <i class="bi bi-eye-fill"></i> View Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="filteredTransactions.length > 0" class="transaction-summary">
+        <div class="summary-item">
+            <span class="label">Total Transactions:</span>
+            <span class="value">{{ filteredTransactions.length }}</span>
+        </div>
+        <div class="summary-item">
+            <span class="label">Total Amount:</span>
+            <span class="value">₹{{ getTotalAmount() | number:'1.2-2' }}</span>
+        </div>
+    </div>
+</div>

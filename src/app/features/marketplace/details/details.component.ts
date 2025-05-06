@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CropListingService } from '../../../core/services/crop-listing.service';
 import { UserService } from '../../../core/services/user.service';
 import { CropListing } from '../../../models/crop-listing/crop-listing.model';
@@ -9,6 +9,7 @@ import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { CropDto } from '../../../models/crop/crop.model';
 import { CropService } from '../../../core/services/crop.service';
+import { TokenService } from '../../../core/auth/token.service';
 
 @Component({
   selector: 'app-details',
@@ -36,7 +37,8 @@ export class DetailsComponent implements OnInit {
     private listingService: CropListingService,
     private userService: UserService,
     private authService: AuthService,
-    private cropService: CropService
+    private cropService: CropService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -102,6 +104,6 @@ export class DetailsComponent implements OnInit {
   initiateTransaction(): void {
     // TODO: Implement transaction flow
     console.log('Initiating transaction for listing:', this.listingId);
-    // this.router.navigate(['/transactions/initiate', this.listingId]);
+    this.router.navigate(['/transactions/initiate', this.listingId]);
   }
 }

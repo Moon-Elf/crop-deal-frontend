@@ -28,17 +28,17 @@ export class TokenInterceptor implements HttpInterceptor {
       console.log('No token found');
     }
 
-    const publicUrls = [
-      'api/CropListing',
-    ];
+    // const publicUrls = [
+    //   'api/CropListing',
+    // ];
   
-    // Check if request URL is public
-    const isPublic = publicUrls.some(url => req.url.includes(url));
+    // // Check if request URL is public
+    // const isPublic = publicUrls.some(url => req.url.includes(url));
   
-    if (isPublic) {
-      // Skip token attachment
-      return next.handle(req);
-    }
+    // if (isPublic) {
+    //   // Skip token attachment
+    //   return next.handle(req);
+    // }
   
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {

@@ -1,0 +1,112 @@
+<div class="transaction-create-container">
+    <div class="form-header">
+      <h2>
+        <i class="bi bi-cart-plus"></i> Initiate Transaction
+      </h2>
+      <button class="btn btn-back" routerLink="/marketplace">
+        <i class="bi bi-arrow-left"></i> Back to Marketplace
+      </button>
+    </div>
+  
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading crop listing details...</p>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger">
+      <i class="bi bi-exclamation-triangle-fill"></i> Could not load crop listing.
+    </div>
+  
+    <form *ngIf="!loading && listing" [formGroup]="form" (ngSubmit)="submit()" class="transaction-form">
+      <div class="form-section">
+        <h3><i class="bi bi-basket"></i> Crop Information</h3>
+        <div class="form-group">
+          <label class="form-label">Crop Name</label>
+          <input type="text" class="form-control" [value]="listing.cropName" disabled />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Available Quantity</label>
+          <div class="input-group">
+            <input type="number" class="form-control" [value]="listing.quantity" disabled />
+            <span class="input-group-text">kg</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Original Price</label>
+          <div class="input-group">
+            <span class="input-group-text">₹</span>
+            <input type="number" class="form-control" [value]="listing.pricePerKg" disabled />
+            <span class="input-group-text">per kg</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-section">
+        <h3><i class="bi bi-person"></i> Farmer Details</h3>
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" [value]="farmerDetails.name" disabled />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contact</label>
+          <div class="row g-2">
+            <div class="col-md-6">
+              <input type="text" class="form-control" [value]="farmerDetails.email" disabled />
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" [value]="farmerDetails.phoneNumber || 'Not provided'" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-section">
+        <h3><i class="bi bi-cash-stack"></i> Transaction Details</h3>
+        <div class="form-group">
+          <label class="form-label">Quantity to Purchase</label>
+          <div class="input-group">
+            <input type="number" formControlName="quantity" class="form-control" 
+                   [ngClass]="{ 'is-invalid': form.get('quantity')?.touched && form.get('quantity')?.invalid }" />
+            <span class="input-group-text">kg</span>
+            <div *ngIf="form.get('quantity')?.touched && form.get('quantity')?.invalid" class="invalid-feedback">
+              <span *ngIf="form.get('quantity')?.errors?.['required']">Quantity is required</span>
+              <span *ngIf="form.get('quantity')?.errors?.['min']">Minimum 1 kg</span>
+              <span *ngIf="form.get('quantity')?.errors?.['max']">Cannot exceed available quantity</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Negotiated Price</label>
+          <div class="input-group">
+            <span class="input-group-text">₹</span>
+            <input type="number" formControlName="finalPricePerKg" class="form-control"
+                   [ngClass]="{ 'is-invalid': form.get('finalPricePerKg')?.touched && form.get('finalPricePerKg')?.invalid }" />
+            <span class="input-group-text">per kg</span>
+            <div *ngIf="form.get('finalPricePerKg')?.touched && form.get('finalPricePerKg')?.invalid" class="invalid-feedback">
+              <span *ngIf="form.get('finalPricePerKg')?.errors?.['required']">Price is required</span>
+              <span *ngIf="form.get('finalPricePerKg')?.errors?.['min']">Must be at least ₹1</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group total-price">
+          <label class="form-label">Total Transaction Value</label>
+          <div class="total-amount">
+            ₹{{ totalPrice | number:'1.2-2' }}
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" class="btn btn-submit" [disabled]="submitting || !form.valid">
+          <span *ngIf="submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          {{ submitting ? 'Processing...' : 'Confirm Purchase' }}
+        </button>
+      </div>
+  
+      <div *ngIf="success" class="alert alert-success">
+        <i class="bi bi-check-circle-fill"></i> Transaction successfully created! Redirecting...
+      </div>
+    </form>
+  </div>
