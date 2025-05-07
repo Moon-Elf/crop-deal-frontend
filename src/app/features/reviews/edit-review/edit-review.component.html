@@ -1,0 +1,66 @@
+<div class="review-form-container">
+  <div class="form-header">
+    <button class="btn btn-back" routerLink="/review">
+      <i class="bi bi-arrow-left"></i> Back to Reviews
+    </button>
+    <h2>Edit Your Review</h2>
+  </div>
+
+  <div *ngIf="originalReview && farmer && listing" class="review-details">
+    <div class="transaction-card">
+      <h4>Transaction Details</h4>
+      <div class="detail-item">
+        <i class="bi bi-receipt"></i>
+        <span>ID: {{ originalReview.transactionId | shortenId }}</span>
+      </div>
+    </div>
+
+    <div class="crop-card">
+      <h4>Crop Purchased</h4>
+      <div class="detail-item">
+        <i class="bi bi-plant"></i>
+        <span>{{ listing.cropName }}</span>
+      </div>
+      <div class="detail-item">
+        <i class="bi bi-person-badge"></i>
+        <span>Farmer: {{ farmer.name }}</span>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="review-form">
+    <div class="form-group">
+      <label class="form-label">Your Rating</label>
+      <div class="star-rating">
+        <span *ngFor="let star of [1,2,3,4,5]" 
+              (click)="setRating(star)"
+              [class.active]="star <= reviewForm.get('rating')?.value">
+          ★
+        </span>
+      </div>
+      <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched" class="invalid-feedback">
+        Please select a rating between 1 and 5
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Your Review</label>
+      <textarea formControlName="comment" rows="4" class="form-control"
+                placeholder="Share your experience with this transaction..."></textarea>
+    </div>
+
+    <div class="form-footer">
+      <button type="submit" class="btn btn-submit" [disabled]="reviewForm.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ loading ? 'Updating...' : 'Update Review' }}
+      </button>
+      <button type="button" class="btn btn-cancel" (click)="goBack()" [disabled]="loading">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="error" class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+  </div>
+</div>

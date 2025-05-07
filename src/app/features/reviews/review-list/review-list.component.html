@@ -1,0 +1,62 @@
+<div class="review-container">
+    <h2 class="review-header">Your Reviews</h2>
+    
+    <div *ngIf="loading" class="loading-spinner">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading reviews...</p>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger">
+      <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+    </div>
+  
+    <div *ngIf="!loading && reviews?.length; else noReviews" class="review-list">
+      <div *ngFor="let review of reviews" class="review-card">
+        <div class="review-rating">
+          <div class="stars" [style.--rating]="review.rating" attr.aria-label="Rating of this product is {{ review.rating }} out of 5.">
+          </div>
+          <span class="rating-value">{{ review.rating }}/5</span>
+        </div>
+        
+        <div class="review-comment">
+          <p>{{ review.comment || 'No comment provided' }}</p>
+        </div>
+        
+        <div class="review-meta">
+          <div class="meta-item">
+            <i class="bi bi-receipt"></i>
+            <span>Transaction: {{ review.transactionId | shortenId }}</span>
+          </div>
+          
+          <div *ngIf="userRole === 'Dealer' || userRole === 'Admin'" class="meta-item">
+            <i class="bi bi-person-badge"></i>
+            <span>Farmer: {{ farmerDetailsMap[review.farmerId].name || 'Loading...' }}</span>
+          </div>
+          
+          <div *ngIf="userRole === 'Farmer' || userRole === 'Admin'" class="meta-item">
+            <i class="bi bi-person-badge"></i>
+            <span>Dealer: {{ dealerDetailsMap[review.dealerId].name || 'Loading...' }}</span>
+          </div>
+        </div>
+        
+        <div class="review-actions">
+          <button class="btn btn-view" (click)="viewReview(review.id)">
+            <i class="bi bi-eye-fill"></i> View Details
+          </button>
+          <button *ngIf="userRole === 'Dealer'" class="btn btn-edit" (click)="editReview(review.id)">
+            <i class="bi bi-pencil-fill"></i> Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noReviews>
+      <div class="empty-state">
+        <img src="assets/images/review-empty.svg" alt="No reviews" width="120">
+        <h3>No Reviews Found</h3>
+        <p>You don't have any reviews yet.</p>
+      </div>
+    </ng-template>
+  </div>

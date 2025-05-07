@@ -1,0 +1,72 @@
+<div class="review-view-container">
+  <div class="review-header">
+    <button class="btn btn-back" routerLink="/review">
+      <i class="bi bi-arrow-left"></i> Back to Reviews
+    </button>
+    <h2>Review Details</h2>
+  </div>
+
+  <div *ngIf="review" class="review-card">
+    <div class="review-header-actions">
+      <div class="review-rating">
+        <div class="stars" [style.--rating]="review.rating" 
+             attr.aria-label="Rating of this transaction is {{ review.rating }} out of 5.">
+        </div>
+        <span class="rating-value">{{ review.rating | number:'1.1-1' }}/5</span>
+      </div>
+      
+      <button *ngIf="userRole === 'Dealer'" class="btn btn-edit" (click)="editReview(review.id)">
+        <i class="bi bi-pencil-fill"></i> Edit
+      </button>
+    </div>
+
+    <div class="review-comment" *ngIf="review.comment">
+      <h4>Comment:</h4>
+      <p>"{{ review.comment }}"</p>
+    </div>
+
+    <div class="review-details">
+      <div class="detail-section">
+        <h4>Transaction Details</h4>
+        <div class="detail-item">
+          <i class="bi bi-receipt"></i>
+          <span>ID: {{ transaction.id | shortenId }}</span>
+        </div>
+        <button class="btn btn-view" (click)="viewTransaction(transaction.id)">
+          <i class="bi bi-eye-fill"></i> View Full Transaction
+        </button>
+      </div>
+
+      <div class="detail-section">
+        <h4>Crop Details</h4>
+        <div class="detail-item" *ngIf="listing">
+          <i class="bi bi-plant"></i>
+          <span>{{ listing.cropName }}</span>
+        </div>
+        <div class="detail-item" *ngIf="listing">
+          <i class="bi bi-cash-coin"></i>
+          <span>Price: ₹{{ listing.pricePerKg | number }} per kg</span>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4>Parties Involved</h4>
+        <div class="detail-item" *ngIf="farmer">
+          <i class="bi bi-person-badge"></i>
+          <span>Farmer: {{ farmer.name }}</span>
+        </div>
+        <div class="detail-item" *ngIf="dealer">
+          <i class="bi bi-person-badge"></i>
+          <span>Dealer: {{ dealer.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!review" class="loading-spinner">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Loading review details...</p>
+  </div>
+</div>

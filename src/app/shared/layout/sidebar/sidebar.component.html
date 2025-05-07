@@ -26,6 +26,9 @@
       <li class="nav-item">
         <a class="nav-link" (click)="navigate('/transactions')" data-icon="📋"><span>Transactions</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/review')" data-icon="🛒"><span>Reviews</span></a>
+      </li>
     </ng-container>
 
     <!-- Dealer Links -->
@@ -39,8 +42,11 @@
       <li class="nav-item">
         <a class="nav-link" (click)="navigate('/transactions')" data-icon="🛒"><span>Transactions</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/review')" data-icon="🛒"><span>Reviews</span></a>
+      </li>
     </ng-container>
-
+    
     <!-- Admin Links -->
     <ng-container *ngIf="role === 'Admin'">
       <li class="nav-item">
@@ -51,6 +57,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="navigate('/admin/crops')" data-icon="🌾"><span>Manage Crops</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="navigate('/review')" data-icon="🛒"><span>All Reviews</span></a>
       </li>
       <li class="nav-item">
         <button class="nav-link" (click)="logout()" data-icon="➕"><span>Logout</span></button>

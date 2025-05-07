@@ -20,6 +20,7 @@ export class TransactionListComponent implements OnInit {
   error = false;
   userRole: string = '';
   statusFilter: string = '';
+  reviewId?: string;
 
   constructor(
     private transactionService: TransactionService,
@@ -41,6 +42,7 @@ export class TransactionListComponent implements OnInit {
         this.transactions = data;
         this.filteredTransactions = [...data];
         this.loading = false;
+        // console.log(data);
       },
       error: (err) => {
         console.error('Error loading transactions:', err);
@@ -68,5 +70,13 @@ export class TransactionListComponent implements OnInit {
 
   viewDetails(id: string): void {
     this.router.navigate(['/transactions/view', id]);
+  }
+
+  giveReview(id: string): void {
+    this.router.navigate([`/review/give/${id}`]);
+  }
+
+  viewReview(id: any): void {
+    this.router.navigate([`/review/view/${id}`]);
   }
 }

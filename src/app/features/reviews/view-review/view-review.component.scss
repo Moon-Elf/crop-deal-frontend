@@ -1,0 +1,217 @@
+@import '../../../../styles/variables';
+
+.review-view-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.review-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+
+  h2 {
+    color: $primary-green;
+    font-weight: 700;
+    margin: 0.5rem 0;
+  }
+}
+
+.review-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-back {
+  position: absolute;
+  left: 0;
+  background-color: transparent;
+  color: $primary-green;
+  border: 1px solid $primary-green;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($primary-green, 0.1);
+  }
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.btn-edit {
+  background-color: rgba($accent-orange, 0.1);
+  color: $accent-orange;
+  border: 1px solid rgba($accent-orange, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($accent-orange, 0.2);
+  }
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.review-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba($earth-brown, 0.1);
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+
+  .stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: 2rem;
+    line-height: 1;
+    
+    &::before {
+      content: '★★★★★';
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, $accent-orange var(--percent), #ddd var(--percent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .rating-value {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $earth-brown;
+  }
+}
+
+.review-comment {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: rgba($light-beige, 0.5);
+  border-radius: 8px;
+  border-left: 4px solid $secondary-green;
+
+  h4 {
+    color: $primary-green;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin: 0;
+    font-style: italic;
+    color: $dark-text;
+    font-size: 1.1rem;
+  }
+}
+
+.review-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.detail-section {
+  h4 {
+    color: $primary-green;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba($earth-brown, 0.2);
+  }
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  color: $dark-text;
+
+  i {
+    color: $primary-green;
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    min-width: 20px;
+  }
+}
+
+.btn-view {
+  margin-top: 1rem;
+  background-color: rgba($secondary-green, 0.1);
+  color: $primary-green;
+  border: 1px solid rgba($primary-green, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  width: 100%;
+
+  &:hover {
+    background-color: rgba($secondary-green, 0.2);
+  }
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: $primary-green;
+
+  p {
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .review-view-container {
+    padding: 0 0.5rem;
+  }
+
+  .review-header {
+    text-align: left;
+    padding-left: 0;
+    margin-bottom: 1rem;
+
+    .btn-back {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .review-card {
+    padding: 1.5rem;
+  }
+
+  .review-details {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .review-header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -17,6 +17,14 @@
         <button class="btn btn-download" (click)="downloadReceipt()">
             <i class="bi bi-download"></i> Download Receipt
         </button>
+        <button *ngIf="userRole === 'Dealer' && transaction?.reviewId == null && transaction?.status == 'Completed'" 
+                class="btn btn-review" (click)="giveReview()">
+            <i class="bi bi-star-fill"></i> Give Review
+        </button>
+        <button *ngIf="transaction?.reviewId != null && transaction?.status == 'Completed'" 
+                class="btn btn-view-review" (click)="viewReview()">
+            <i class="bi bi-eye-fill"></i> View Review
+        </button>
     </div>
 
     <div *ngIf="transaction && cropListing && dealer && farmer && crop" class="transaction-details">

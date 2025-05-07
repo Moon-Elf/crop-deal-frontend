@@ -10,4 +10,5 @@ export interface TransactionDto {
   totalPrice: number;
   status: TransactionStatus;
   createdAt: string;
+  reviewId?: string;
 }

@@ -285,3 +285,88 @@
         gap: 1rem;
     }
 }
+
+/* Transaction Actions */
+.transaction-actions {
+    display: flex;
+    gap: 0.75rem;
+    
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      
+      i {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  /* Button Styles */
+  .btn-details {
+    background-color: rgba($primary-green, 0.1);
+    color: $primary-green;
+    border: none;
+    
+    &:hover {
+      background-color: rgba($primary-green, 0.2);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .btn-review {
+    background-color: rgba(#ffc107, 0.1);
+    color: darken(#ffc107, 15%);
+    border: none;
+    
+    &:hover {
+      background-color: rgba(#ffc107, 0.2);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .btn-view-review {
+    background-color: rgba($secondary-green, 0.1);
+    color: darken($secondary-green, 15%);
+    border: none;
+    
+    &:hover {
+      background-color: rgba($secondary-green, 0.2);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: $breakpoint-md) {
+    .transaction-footer {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .transaction-actions {
+      width: 100%;
+      
+      .btn {
+        flex: 1;
+        justify-content: center;
+      }
+    }
+  }

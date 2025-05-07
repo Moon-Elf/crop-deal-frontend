@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TransactionService } from '../../../core/services/transaction.service';
 import { UserService } from '../../../core/services/user.service';
 import { CropService } from '../../../core/services/crop.service';
@@ -31,7 +31,7 @@ export class ViewTransactionComponent implements OnInit {
   dealer?: UserDto;
   cropListing?: CropListing;
   crop?: CropDto;
-
+  reviewId?: string;
   userRole: string = '';
   loading = true;
   error = false;
@@ -43,6 +43,7 @@ export class ViewTransactionComponent implements OnInit {
     private cropService: CropService,
     private cropListingService: CropListingService,
     private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +56,8 @@ export class ViewTransactionComponent implements OnInit {
     this.transactionService.getTransactionById(this.transactionId).subscribe({
       next: (data) => {
         this.transaction = data;
+        console.log(data);
+        this.reviewId = data.reviewId;
         this.loadCropListing(data.listingId);
         this.loadDealer(data.dealerId);
       },
@@ -136,6 +139,14 @@ export class ViewTransactionComponent implements OnInit {
         console.error('Failed to cancel transaction.');
       }
     });
+  }
+
+  giveReview(): void {
+    this.router.navigate([`/review/give/${this.transactionId}`]);
+  }
+  
+  viewReview(): void {
+    this.router.navigate([`/review/view/${this.transaction?.reviewId}`]);
   }
   
   downloadReceipt(): void {

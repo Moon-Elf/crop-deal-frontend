@@ -419,15 +419,68 @@
     }
 }
 
-// Add to your SCSS file
+/* Button Group Styles */
 .button-group {
     display: flex;
     gap: 0.75rem;
     margin-bottom: 2rem;
     flex-wrap: wrap;
+    
+    .btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        
+        i {
+            font-size: 0.9rem;
+        }
+    }
 }
 
-.btn-back,
-.btn-download {
-    margin: 0; // Remove individual margins
+/* Review Button Styles */
+.btn-review {
+    background-color: rgba(#ffc107, 0.1);
+    color: darken(#ffc107, 15%);
+    border: 1px solid rgba(#ffc107, 0.3);
+    
+    &:hover {
+        background-color: rgba(#ffc107, 0.2);
+        transform: translateY(-1px);
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.btn-view-review {
+    background-color: rgba($primary-green, 0.1);
+    color: $primary-green;
+    border: 1px solid rgba($primary-green, 0.3);
+    
+    &:hover {
+        background-color: rgba($primary-green, 0.2);
+        transform: translateY(-1px);
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: $breakpoint-md) {
+    .button-group {
+        flex-direction: column;
+        
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
 }

@@ -62,10 +62,10 @@
             <div class="transaction-footer">
                 <div class="transaction-status">
                     <span class="badge" [ngClass]="{
-              'status-pending': tx.status === 'Pending',
-              'status-completed': tx.status === 'Completed',
-              'status-cancelled': tx.status === 'Cancelled'
-            }">
+                    'status-pending': tx.status === 'Pending',
+                    'status-completed': tx.status === 'Completed',
+                    'status-cancelled': tx.status === 'Cancelled'
+                  }">
                         {{ tx.status }}
                     </span>
                     <span class="transaction-date">
@@ -73,9 +73,19 @@
                     </span>
                 </div>
 
-                <button class="btn btn-details" (click)="viewDetails(tx.id)">
-                    <i class="bi bi-eye-fill"></i> View Details
-                </button>
+                <div class="transaction-actions">
+                    <button class="btn btn-details" (click)="viewDetails(tx.id)">
+                        <i class="bi bi-eye-fill"></i> Details
+                    </button>
+                    <button *ngIf="userRole === 'Dealer' && tx?.reviewId == null && tx.status == 'Completed'"
+                        class="btn btn-review" (click)="giveReview(tx.id)">
+                        <i class="bi bi-star-fill"></i> Review
+                    </button>
+                    <button *ngIf="tx?.reviewId != null && tx?.status == 'Completed'" class="btn btn-view-review"
+                        (click)="viewReview(tx.reviewId)">
+                        <i class="bi bi-star"></i> View Review
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -60,5 +60,10 @@ export const routes: Routes = [
         path: 'transactions',
         loadChildren: () => import('./features/transactions/transactions.module').then(m => m.TransactionsModule),
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'review',
+        loadChildren: () => import('./features/reviews/reviews.module').then(m => m.ReviewsModule),
+        canActivate: [AuthGuard]
     }
 ];
