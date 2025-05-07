@@ -6,10 +6,252 @@ $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 $breakpoint-xxl: 1400px;
 
-// Color Variables
+/* ================== */
+/* === EARTH THEME === (Default) */
+/* ================== */
 $primary-green: #3a7d44;
 $secondary-green: #6bbd6e;
 $earth-brown: #8b5a2b;
 $light-beige: #f5f5dc;
 $dark-text: #333333;
 $accent-orange: #e67e22;
+
+
+/* ================== */
+/* === OCEAN THEME === */
+/* ================== */
+// $primary-green: #2c7873;
+// $secondary-green: #6fb98f;
+// $earth-brown: #00416a;
+// $light-beige: #e8f4f8;
+// $dark-text: #2d4059;
+// $accent-orange: #ff7b54;
+
+
+/* ================== */
+/* === DARK THEME === */
+/* ================== */
+// $primary-green: #4e9f3d;
+// $secondary-green: #6bbd6e;
+// $earth-brown: #5d3a00;
+// $light-beige: #1e1e1e;
+// $dark-text: #e0e0e0;
+// $accent-orange: #ff8c42;
+
+
+/* ==================== */
+/* === SUNSET THEME === */
+/* ==================== */
+// $primary-green: #5d8233;
+// $secondary-green: #8db596;
+// $earth-brown: #945d5e;
+// $light-beige: #f8e5d6;
+// $dark-text: #3a3a3a;
+// $accent-orange: #e57a44;
+
+
+/* ===================== */
+/* === JUNGLE THEME === */
+/* ===================== */
+// $primary-green: #2a6041;
+// $secondary-green: #4c9566;
+// $earth-brown: #5c4d3d;
+// $light-beige: #f1f7ed;
+// $dark-text: #2c3e50;
+// $accent-orange: #f18f01;
+
+
+/* ==================== */
+/* === MODERN THEME === */
+/* ==================== */
+// $primary-green: #00a896;
+// $secondary-green: #02c39a;
+// $earth-brown: #5e503f;
+// $light-beige: #f0f3bd;
+// $dark-text: #292f36;
+// $accent-orange: #ff6b6b;
+
+
+/* ================== */
+/* === MINT THEME === */
+/* ================== */
+// $primary-green: #2d936c;
+// $secondary-green: #6bbd6e;
+// $earth-brown: #5a3d2b;
+// $light-beige: #e8f7ee;
+// $dark-text: #2c3e50;
+// $accent-orange: #ff7b54;
+
+/* ===================== */
+/* === BLOSSOM THEME === */
+/* ===================== */
+// $primary-green: #a2d5ab;
+// $secondary-green: #d3f8e2;
+// $earth-brown: #caa6a6;
+// $light-beige: #fff0f5;
+// $dark-text: #5c3c3c;
+// $accent-orange: #ff6f61;
+
+
+/* ===================== */
+/* === GLACIER THEME === */
+/* ===================== */
+// $primary-green: #b5e2fa;
+// $secondary-green: #94d0cc;
+// $earth-brown: #4a6fa5;
+// $light-beige: #eef9fb;
+// $dark-text: #1c2b2d;
+// $accent-orange: #ffaa5a;
+
+
+/* ===================== */
+/* === DESERT THEME === */
+/* ===================== */
+// $primary-green: #b68d40;
+// $secondary-green: #e4c580;
+// $earth-brown: #8c5e3c;
+// $light-beige: #fceabb;
+// $dark-text: #3b3024;
+// $accent-orange: #ff9f1c;
+
+
+/* ==================== */
+/* === CYBER THEME === */
+/* ==================== */
+// $primary-green: #00f5d4;
+// $secondary-green: #00bbf9;
+// $earth-brown: #3a0ca3;
+// $light-beige: #f8f9fa;
+// $dark-text: #1e1e2f;
+// $accent-orange: #ff006e;
+
+
+/* ===================== */
+/* === AUTUMN THEME === */
+/* ===================== */
+// $primary-green: #6b705c;
+// $secondary-green: #a5a58d;
+// $earth-brown: #cb997e;
+// $light-beige: #ffe8d6;
+// $dark-text: #2f2f2f;
+// $accent-orange: #dd6e42;
+
+
+/* ===================== */
+/* === GALAXY THEME === */
+/* ===================== */
+// $primary-green: #2e294e;
+// $secondary-green: #9055a2;
+// $earth-brown: #3e2f5b;
+// $light-beige: #dcd6f7;
+// $dark-text: #ffffff;
+// $accent-orange: #ff6f3c;
+
+/* ==================== */
+/* === FOREST THEME === */
+/* ==================== */
+// $primary-green: #2b7a0b;
+// $secondary-green: #7fb800;
+// $earth-brown: #5a381e;
+// $light-beige: #f1f8e9;
+// $dark-text: #2e3d26;
+// $accent-orange: #d95d39;
+
+
+/* ==================== */
+/* === LAVENDER THEME === */
+/* ==================== */
+// $primary-green: #c3aed6;
+// $secondary-green: #dab6fc;
+// $earth-brown: #a59aca;
+// $light-beige: #f8f4fc;
+// $dark-text: #4c3a51;
+// $accent-orange: #ff9a76;
+
+
+/* ===================== */
+/* === VINTAGE THEME === */
+/* ===================== */
+// $primary-green: #a27b5c;
+// $secondary-green: #dcd0c0;
+// $earth-brown: #85586f;
+// $light-beige: #f9f4ef;
+// $dark-text: #403d39;
+// $accent-orange: #ef8354;
+
+
+/* ===================== */
+/* === PASTEL THEME === */
+/* ===================== */
+// $primary-green: #aed9e0;
+// $secondary-green: #b8f2e6;
+// $earth-brown: #f6c6ea;
+// $light-beige: #fef9ef;
+// $dark-text: #4a4e69;
+// $accent-orange: #ffc3a0;
+
+
+/* ===================== */
+/* === SANDSTONE THEME === */
+/* ===================== */
+// $primary-green: #c2b280;
+// $secondary-green: #e6d3a3;
+// $earth-brown: #b08968;
+// $light-beige: #f6f1e7;
+// $dark-text: #3e2f21;
+// $accent-orange: #f4a261;
+
+
+/* ==================== */
+/* === FLORAL THEME === */
+/* ==================== */
+// $primary-green: #a1c181;
+// $secondary-green: #e0eec6;
+// $earth-brown: #c97c5d;
+// $light-beige: #fff5e1;
+// $dark-text: #3d3d3d;
+// $accent-orange: #f67280;
+
+
+/* ==================== */
+/* === RETRO THEME === */
+/* ==================== */
+// $primary-green: #70c1b3;
+// $secondary-green: #ffe066;
+// $earth-brown: #f25f5c;
+// $light-beige: #f4f1bb;
+// $dark-text: #50514f;
+// $accent-orange: #ff9f1c;
+
+
+/* =================== */
+/* === TROPIC THEME === */
+/* =================== */
+// $primary-green: #4caf50;
+// $secondary-green: #81c784;
+// $earth-brown: #a1887f;
+// $light-beige: #fffde7;
+// $dark-text: #2e2e2e;
+// $accent-orange: #ff7043;
+
+
+/* =================== */
+/* === NIGHTFALL THEME === */
+/* =================== */
+// $primary-green: #3a3f5c;
+// $secondary-green: #50577a;
+// $earth-brown: #5c5470;
+// $light-beige: #eaeaea;
+// $dark-text: #1a1a2e;
+// $accent-orange: #ff6f61;
+
+
+/* ===================== */
+/* === CREAMSICLE THEME === */
+/* ===================== */
+// $primary-green: #ffd5c2;
+// $secondary-green: #ffe5b4;
+// $earth-brown: #ffaaa5;
+// $light-beige: #fffaf0;
+// $dark-text: #3e3e3e;
+// $accent-orange: #ff847c;
