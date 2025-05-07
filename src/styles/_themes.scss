@@ -1,0 +1,84 @@
+:root {
+    /* Default Theme (Earth) */
+    --primary-green: #3a7d44;
+    --secondary-green: #6bbd6e;
+    --earth-brown: #8b5a2b;
+    --light-beige: #f5f5dc;
+    --dark-text: #333333;
+    --accent-orange: #e67e22;
+    --background: #f5f5dc;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+}
+
+[data-theme="ocean"] {
+    --primary-green: #2c7873;
+    --secondary-green: #6fb98f;
+    --earth-brown: #00416a;
+    --light-beige: #e8f4f8;
+    --dark-text: #2d4059;
+    --accent-orange: #ff7b54;
+    --background: #e8f4f8;
+    --card-bg: #ffffff;
+    --text-color: #2d4059;
+}
+
+[data-theme="dark"] {
+    --primary-green: #4e9f3d;
+    --secondary-green: #6bbd6e;
+    --earth-brown: #5d3a00;
+    --light-beige: #1e1e1e;
+    --dark-text: #e0e0e0;
+    --accent-orange: #ff8c42;
+    --background: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+}
+
+[data-theme="sunset"] {
+    --primary-green: #5d8233;
+    --secondary-green: #8db596;
+    --earth-brown: #945d5e;
+    --light-beige: #f8e5d6;
+    --dark-text: #3a3a3a;
+    --accent-orange: #e57a44;
+    --background: #f8e5d6;
+    --card-bg: #ffffff;
+    --text-color: #3a3a3a;
+}
+
+[data-theme="jungle"] {
+    --primary-green: #2a6041;
+    --secondary-green: #4c9566;
+    --earth-brown: #5c4d3d;
+    --light-beige: #f1f7ed;
+    --dark-text: #2c3e50;
+    --accent-orange: #f18f01;
+    --background: #f1f7ed;
+    --card-bg: #ffffff;
+    --text-color: #2c3e50;
+}
+
+[data-theme="modern"] {
+    --primary-green: #00a896;
+    --secondary-green: #02c39a;
+    --earth-brown: #5e503f;
+    --light-beige: #f0f3bd;
+    --dark-text: #292f36;
+    --accent-orange: #ff6b6b;
+    --background: #f0f3bd;
+    --card-bg: #ffffff;
+    --text-color: #292f36;
+}
+
+[data-theme="mint"] {
+    --primary-green: #2d936c;
+    --secondary-green: #6bbd6e;
+    --earth-brown: #5a3d2b;
+    --light-beige: #e8f7ee;
+    --dark-text: #2c3e50;
+    --accent-orange: #ff7b54;
+    --background: #e8f7ee;
+    --card-bg: #ffffff;
+    --text-color: #2c3e50;
+}

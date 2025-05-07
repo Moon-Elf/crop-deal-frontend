@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { BankAccount, CreateBankAccount, UpdateBankAccount } from '../../models/bank-account.model';
+import { BankAccount, CreateBankAccount, UpdateBankAccount } from '../../models/bank account/bank-account.model';
 import { CropListing } from '../../models/crop-listing/crop-listing.model';
 
 @Injectable({

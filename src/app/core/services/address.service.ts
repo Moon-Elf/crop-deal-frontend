@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { map, Observable } from 'rxjs';
-import { AddressDto, CreateAddressDto, UpdateAddressDto } from '../../models/address.model';
+import { AddressDto, CreateAddressDto, UpdateAddressDto } from '../../models/address/address.model';
 
 @Injectable({
   providedIn: 'root'

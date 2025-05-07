@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddressService } from '../../../core/services/address.service';
-import { AddressDto } from '../../../models/address.model';
+import { AddressDto } from '../../../models/address/address.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

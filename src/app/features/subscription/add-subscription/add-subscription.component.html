@@ -1,0 +1,43 @@
+<div class="subscription-form-container">
+  <div class="form-header">
+    <button class="btn btn-back" routerLink="/subscription">
+      <i class="bi bi-arrow-left"></i> Back
+    </button>
+    <h2>Add New Subscription</h2>
+  </div>
+
+  <form [formGroup]="cropForm" (ngSubmit)="onSubmit()" class="subscription-form">
+    <div class="form-group">
+      <label class="form-label">Crop Type</label>
+      <select class="form-control" formControlName="cropType">
+        <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Crop Name</label>
+      <select class="form-control" formControlName="cropId" [disabled]="!filteredCrops.length">
+        <option value="" disabled>Select a crop</option>
+        <option *ngFor="let crop of filteredCrops" [value]="crop.id">{{ crop.name }}</option>
+      </select>
+      <div *ngIf="!filteredCrops.length" class="no-crops">
+        No crops available for selected type
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button type="submit" class="btn btn-submit" [disabled]="cropForm.invalid || loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ loading ? 'Subscribing...' : 'Subscribe' }}
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="error" class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    <i class="bi bi-check-circle-fill"></i> {{ successMessage }}
+  </div>
+</div>

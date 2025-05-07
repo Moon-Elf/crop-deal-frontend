@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BankAccountService } from '../../../core/services/bank-account.service';
-import { BankAccount } from '../../../models/bank-account.model';
+import { BankAccount } from '../../../models/bank account/bank-account.model';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

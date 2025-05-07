@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { ProfileDto } from '../../../models/profile.model';
+import { ProfileDto } from '../../../models/profile/profile.model';
 import { environment } from '../../../../environments/environment';
 
 @Component({

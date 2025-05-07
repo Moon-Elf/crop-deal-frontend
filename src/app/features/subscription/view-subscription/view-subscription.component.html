@@ -1,0 +1,57 @@
+<div class="subscription-container">
+    <div class="subscription-header">
+      <h2>Your Subscriptions</h2>
+      <button class="btn btn-add" routerLink="/subscription/add">
+        <i class="bi bi-plus-lg"></i> Add Subscription
+      </button>
+    </div>
+  
+    <div *ngIf="loading" class="loading-spinner">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading your subscriptions...</p>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger">
+      <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+    </div>
+  
+    <div *ngIf="!loading && list?.length; else noSubscriptions" class="subscription-grid">
+      <div *ngFor="let sub of list" class="subscription-card">
+        <div class="subscription-details">
+          <div class="crop-info">
+            <h3>{{ cropDetailsMap[sub.cropId].name || sub.cropName || 'Loading...' }}</h3>
+            <div class="crop-meta">
+              <span class="badge" [ngClass]="'type-' + cropDetailsMap[sub.cropId].type.toLowerCase()">
+                {{ cropDetailsMap[sub.cropId].type || 'Unknown Type' }}
+              </span>
+              <span class="date">
+                <i class="bi bi-calendar"></i>
+                {{ sub.createdAt | date:'mediumDate' }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="subscription-actions">
+          <button class="btn btn-view" [routerLink]="['/marketplace']" [queryParams]="{ cropId: sub.cropId }">
+            <i class="bi bi-eye-fill"></i> View Listings
+          </button>
+          <button class="btn btn-unsubscribe" (click)="delete(sub.id)">
+            <i class="bi bi-bell-slash-fill"></i> Unsubscribe
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noSubscriptions>
+      <div class="empty-state">
+        <img src="assets/images/subscription-empty.svg" alt="No subscriptions" width="120">
+        <h3>No Active Subscriptions</h3>
+        <p>You haven't subscribed to any crops yet.</p>
+        <button class="btn btn-primary" routerLink="/subscription/add">
+          <i class="bi bi-plus-lg"></i> Add Your First Subscription
+        </button>
+      </div>
+    </ng-template>
+  </div>

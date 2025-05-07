@@ -1,0 +1,127 @@
+@import '../../../../styles/variables';
+
+.subscription-form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+
+  h2 {
+    color: $primary-green;
+    font-weight: 700;
+    margin: 0.5rem 0;
+  }
+}
+
+.btn-back {
+  position: absolute;
+  left: 0;
+  background-color: transparent;
+  color: $primary-green;
+  border: 1px solid $primary-green;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($primary-green, 0.1);
+  }
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.subscription-form {
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    .form-label {
+      font-weight: 600;
+      color: $earth-brown;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-control {
+      border: 1px solid rgba($earth-brown, 0.2);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+
+      &:focus {
+        border-color: $secondary-green;
+        box-shadow: 0 0 0 0.25rem rgba($secondary-green, 0.15);
+      }
+
+      &:disabled {
+        background-color: rgba($earth-brown, 0.05);
+      }
+    }
+
+    .no-crops {
+      color: lighten($dark-text, 30%);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+  }
+}
+
+.form-footer {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.btn-submit {
+  background-color: $primary-green;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: darken($primary-green, 10%);
+  }
+
+  &:disabled {
+    background-color: lighten($primary-green, 30%);
+    cursor: not-allowed;
+  }
+}
+
+.alert {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .subscription-form-container {
+    padding: 0 0.5rem;
+  }
+
+  .form-header {
+    text-align: left;
+    padding-left: 0;
+    margin-bottom: 1rem;
+
+    .btn-back {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
-import { ProfileDto } from '../../../models/profile.model';
+import { ProfileDto } from '../../../models/profile/profile.model';
 import { ProfileService } from '../../../core/services/profile.service';
 
 @Component({

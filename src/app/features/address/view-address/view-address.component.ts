@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddressService } from '../../../core/services/address.service';
-import { AddressDto } from '../../../models/address.model';
+import { AddressDto } from '../../../models/address/address.model';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

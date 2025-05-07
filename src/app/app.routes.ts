@@ -65,5 +65,12 @@ export const routes: Routes = [
         path: 'review',
         loadChildren: () => import('./features/reviews/reviews.module').then(m => m.ReviewsModule),
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'subscription',
+        loadChildren: () => import('./features/subscription/subscription.module').then(m => m.SubscriptionModule),
+        canActivate: [AuthGuard, RoleGuard],
+        data: { expectedRole: 'Dealer' }
+
     }
 ];
