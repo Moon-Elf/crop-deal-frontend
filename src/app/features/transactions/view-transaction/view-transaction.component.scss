@@ -287,39 +287,54 @@
 // Receipt template styles (hidden on page but used for PDF)
 .receipt-template {
     background-color: white;
-    padding: 2rem;
+    padding: 1rem;
     font-family: Arial, sans-serif;
     color: #333;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 210mm;
+    min-height: 297mm;
+    box-sizing: border-box;
 
     .receipt-container {
         border: 1px solid rgba($earth-brown, 0.2);
-        padding: 2rem;
+        padding: 20px;
         border-radius: 8px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    .receipt-logo {
+        width: 100px; /* Fixed width */
+        height: 100px; /* Fixed height */
+        display: block;
+        margin: 0 auto 1rem auto;
     }
 
     .receipt-header {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         padding-bottom: 1rem;
         border-bottom: 1px solid rgba($earth-brown, 0.2);
+        flex-shrink: 0;
 
         h2 {
             color: $primary-green;
-            margin: 0;
+            margin: 0.5rem 0;
             font-size: 1.5rem;
         }
     }
 
     .receipt-details {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
+        flex-shrink: 0;
     }
 
     .detail-row {
         display: flex;
         justify-content: space-between;
         margin-bottom: 0.5rem;
+        font-size: 0.9rem;
 
         .label {
             font-weight: 600;
@@ -343,74 +358,56 @@
         }
     }
 
-    .status-badge {
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        font-weight: 500;
-
-        &.status-pending {
-            background-color: rgba(#ffc107, 0.15);
-            color: darken(#ffc107, 20%);
-        }
-
-        &.status-completed {
-            background-color: rgba($secondary-green, 0.15);
-            color: darken($secondary-green, 20%);
-        }
-
-        &.status-cancelled {
-            background-color: rgba(#dc3545, 0.15);
-            color: darken(#dc3545, 10%);
-        }
-    }
-
     .receipt-section {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
         border-bottom: 1px solid rgba($earth-brown, 0.1);
+        flex-shrink: 0;
 
         h3 {
             color: $earth-brown;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
         }
 
         &:last-child {
             border-bottom: none;
+            flex-grow: 1;
         }
     }
 
     .parties-container {
         display: flex;
-        gap: 2rem;
-        margin-top: 1rem;
+        gap: 1rem;
+        margin-top: 0.75rem;
 
         .party-card {
             flex: 1;
-            padding: 1rem;
+            padding: 0.75rem;
             background-color: rgba($primary-green, 0.05);
             border-radius: 6px;
+            font-size: 0.9rem;
 
             h4 {
                 color: $primary-green;
                 margin-top: 0;
-                margin-bottom: 1rem;
-                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+                font-size: 1rem;
             }
 
             p {
-                margin: 0.5rem 0;
+                margin: 0.25rem 0;
+                font-size: 0.85rem;
             }
         }
     }
 
     .receipt-footer {
-        margin-top: 2rem;
+        margin-top: auto;
         padding-top: 1rem;
         border-top: 1px solid rgba($earth-brown, 0.2);
         text-align: center;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: lighten($dark-text, 20%);
 
         p {
@@ -425,7 +422,7 @@
     gap: 0.75rem;
     margin-bottom: 2rem;
     flex-wrap: wrap;
-    
+
     .btn {
         display: flex;
         align-items: center;
@@ -435,7 +432,7 @@
         font-weight: 500;
         transition: all 0.2s ease;
         white-space: nowrap;
-        
+
         i {
             font-size: 0.9rem;
         }
@@ -447,12 +444,12 @@
     background-color: rgba(#ffc107, 0.1);
     color: darken(#ffc107, 15%);
     border: 1px solid rgba(#ffc107, 0.3);
-    
+
     &:hover {
         background-color: rgba(#ffc107, 0.2);
         transform: translateY(-1px);
     }
-    
+
     &:active {
         transform: translateY(0);
     }
@@ -462,12 +459,12 @@
     background-color: rgba($primary-green, 0.1);
     color: $primary-green;
     border: 1px solid rgba($primary-green, 0.3);
-    
+
     &:hover {
         background-color: rgba($primary-green, 0.2);
         transform: translateY(-1px);
     }
-    
+
     &:active {
         transform: translateY(0);
     }
@@ -477,7 +474,7 @@
 @media (max-width: $breakpoint-md) {
     .button-group {
         flex-direction: column;
-        
+
         .btn {
             width: 100%;
             justify-content: center;

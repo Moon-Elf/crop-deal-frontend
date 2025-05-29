@@ -148,7 +148,7 @@ export class ViewTransactionComponent implements OnInit {
   viewReview(): void {
     this.router.navigate([`/review/view/${this.transaction?.reviewId}`]);
   }
-  
+
   downloadReceipt(): void {
     if (!this.transaction) return;
   
@@ -157,48 +157,82 @@ export class ViewTransactionComponent implements OnInit {
   
     // Make the receipt visible temporarily
     receiptElement.style.display = 'block';
-  
+    receiptElement.style.position = 'fixed';
+    receiptElement.style.left = '0';
+    receiptElement.style.top = '0';
+    receiptElement.style.zIndex = '9999';
+    receiptElement.style.width = '210mm';
+    receiptElement.style.padding = '20px';
+    receiptElement.style.boxSizing = 'border-box';
+    receiptElement.style.background = 'white';
+    
+
     // Configuration for html2canvas
     const options = {
-      scale: 2, // Higher quality
+        scale: 2, // Higher quality
+        logging: false,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: receiptElement.scrollWidth,
+        windowHeight: receiptElement.scrollHeight,
+        backgroundColor: '#ffffff' // Ensure white background
+    };
+  
+    html2canvas(receiptElement, {
+      scale: 2,
       logging: false,
       useCORS: true,
       scrollX: 0,
       scrollY: 0,
       windowWidth: receiptElement.scrollWidth,
-      windowHeight: receiptElement.scrollHeight
-    };
-  
-    html2canvas(receiptElement, options).then(canvas => {
-      // Convert canvas to PDF
-      const imgData = canvas.toDataURL('image/png');
+      windowHeight: receiptElement.scrollHeight,
+      backgroundColor: '#ffffff'
+    }).then(canvas => {
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgWidth = pdf.internal.pageSize.getWidth() - 20; // 10mm margins on each side
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      
+    
+      // Resize image manually before inserting
+      const originalCanvas = canvas;
+      const resizedCanvas = document.createElement('canvas');
+      const ctx = resizedCanvas.getContext('2d')!;
+      const targetWidth = 800; // resize width
+      const targetHeight = (originalCanvas.height * targetWidth) / originalCanvas.width;
+    
+      resizedCanvas.width = targetWidth;
+      resizedCanvas.height = targetHeight;
+      ctx.drawImage(originalCanvas, 0, 0, targetWidth, targetHeight);
+    
+      // Get image data from resized canvas
+      const imgData = resizedCanvas.toDataURL('image/png'); // keep as PNG for quality
+    
+      const imgWidth = 190;
+      const imgHeight = (resizedCanvas.height * imgWidth) / resizedCanvas.width;
+    
       pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
       pdf.save(`CropDeal_Receipt_${this.transaction?.id}.pdf`);
-      
-      // Hide the receipt element again
+    
+      // Clean up
       receiptElement.style.display = 'none';
+      receiptElement.style.position = 'absolute';
+      receiptElement.style.left = '-9999px';
       this.loading = false;
     }).catch(err => {
       console.error('Error generating receipt:', err);
       receiptElement.style.display = 'none';
+      receiptElement.style.position = 'absolute';
+      receiptElement.style.left = '-9999px';
       this.loading = false;
-      // Fallback to text-based PDF if HTML-to-PDF fails
-      this.generateTextReceipt();
     });
-  }
-
+    
+}
   // Alternative text-based PDF generation
   generateTextReceipt(): void {
     if (!this.transaction || !this.farmer || !this.dealer || !this.crop) return;
 
     const pdf = new jsPDF();
-    
+
     // Add logo
-    // pdf.addImage(logoData, 'JPEG', 10, 10, 50, 20);
+    // pdf.addImage(, 'JPEG', 10, 10, 50, 20);
 
     // Title
     pdf.setFontSize(20);

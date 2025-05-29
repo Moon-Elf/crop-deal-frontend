@@ -1,0 +1,88 @@
+<div class="users-container">
+  <div class="users-header">
+    <h2>User Management</h2>
+    <p class="subtitle">Manage all registered users in the system</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-section">
+    <div class="row align-items-end">
+      <div class="col-md-4">
+        <label class="form-label">User Type</label>
+        <select class="form-select" [(ngModel)]="selectedType" (change)="filterListings()">
+          <option value="">All Users</option>
+          <option *ngFor="let type of usersTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Search</label>
+        <input type="text" class="form-control" [(ngModel)]="searchTerm" 
+               (input)="filterListings()" placeholder="Search by user name..." />
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <button class="btn btn-outline-success" (click)="resetFilters()">
+          <i class="bi bi-arrow-counterclockwise"></i> Reset Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="users-table-container">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Role</th>
+          <th *ngIf="hasFarmers">Rating</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredListings">
+          <td class="user-name">
+            <div class="avatar">{{ user.name }}</div>
+            <div>
+              <div class="name">{{ user.name }}</div>
+              <div class="email">{{ user.email }}</div>
+            </div>
+          </td>
+          <td class="contact">
+            <div>{{ user.phoneNumber }}</div>
+          </td>
+          <td>
+            <span class="role-badge" [ngClass]="'role-' + user.role.toLowerCase()">
+              {{ user.role }}
+            </span>
+          </td>
+          <td *ngIf="hasFarmers">
+            <div *ngIf="user.role === 'Farmer' && user.averageRating" class="rating">
+              <div class="stars" [style.--rating]="user.averageRating" 
+                   attr.aria-label="Average rating: {{ user.averageRating }} out of 5">
+              </div>
+              <span>({{ user.averageRating | number:'1.1-1' }})</span>
+            </div>
+            <div *ngIf="user.role !== 'Farmer'">-</div>
+          </td>
+          <td>
+            <span class="status-badge" [ngClass]="'status-' + user.status.toLowerCase()">
+              {{ user.status }}
+            </span>
+          </td>
+          <td>
+            <button class="btn-status" (click)="changeStatus(user.id)">
+              {{ user.status === 'Active' ? 'Deactivate' : 'Activate' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filteredListings.length === 0" class="empty-state">
+    <img src="../../../../assets/no-results.png" alt="No users" width="120">
+    <h3>No Users Found</h3>
+    <p>There are no registered users in the system yet.</p>
+  </div>
+</div>

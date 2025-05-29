@@ -19,7 +19,7 @@ export class TransactionService {
   }
 
   getMyTransactions(): Observable<TransactionDto[]> {
-    return this.http.get<any>(this.baseUrl).pipe(
+    return this.http.get<any>(`${this.baseUrl}/my`).pipe(
       map(res => res.$values as TransactionDto[])
     );
   }

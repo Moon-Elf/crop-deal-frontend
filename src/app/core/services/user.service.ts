@@ -23,4 +23,8 @@ export class UserService {
     );
     return value;
   }
+
+  changeStatus(id: string): any {
+    return this.http.put<any>(`${this.baseUrl}?id=${id}`, null);
+  }
 }

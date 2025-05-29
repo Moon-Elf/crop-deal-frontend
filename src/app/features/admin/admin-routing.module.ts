@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddCropsComponent } from './crops/add-crops/add-crops.component';
 import { EditCropsComponent } from './crops/edit-crops/edit-crops.component';
 import { ViewCropsComponent } from './crops/view-crops/view-crops.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
     },
     {
       path: 'crops', component: ViewCropsComponent
+    },
+    {
+      path: 'users', component: UsersComponent
     },
 ];
 

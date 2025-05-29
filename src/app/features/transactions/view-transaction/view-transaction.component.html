@@ -14,7 +14,7 @@
         <button class="btn btn-back" routerLink="/transactions">
             <i class="bi bi-arrow-left"></i> Back to Transactions
         </button>
-        <button class="btn btn-download" (click)="downloadReceipt()">
+        <button *ngIf="transaction?.status==='Completed'" class="btn btn-download" (click)="downloadReceipt()">
             <i class="bi bi-download"></i> Download Receipt
         </button>
         <button *ngIf="userRole === 'Dealer' && transaction?.reviewId == null && transaction?.status == 'Completed'" 
@@ -120,9 +120,10 @@
             </button>
         </div>
     </div>
-    <div #receipt class="receipt-template" style="position: absolute; left: -9999px; top: 0; width: 210mm;">
+    <div #receipt class="receipt-template" style="display: none;">
         <div class="receipt-container">
             <div class="receipt-header">
+                <img src="../../../../assets/receipt-wo-bg.png" class="receipt-logo">
                 <h2>CropDeal Transaction Receipt</h2>
             </div>
 

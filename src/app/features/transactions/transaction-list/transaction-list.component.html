@@ -25,7 +25,7 @@
     </div>
 
     <div *ngIf="!loading && filteredTransactions.length === 0" class="empty-state">
-        <img src="assets/images/transaction-empty.svg" alt="No transactions" width="120">
+        <img src="../../../../assets/no-results.png" alt="No transactions" width="120">
         <h3>No Transactions Found</h3>
         <p *ngIf="statusFilter">No transactions match the selected filter.</p>
         <p *ngIf="!statusFilter">You haven't made any transactions yet.</p>

@@ -162,6 +162,7 @@
   border-radius: 10px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 
+
   h3 {
     color: $primary-green;
     margin: 1rem 0 0.5rem;
@@ -171,6 +172,8 @@
     color: lighten($dark-text, 20%);
     margin-bottom: 1.5rem;
   }
+
+  
 }
 
 .loading-spinner {
